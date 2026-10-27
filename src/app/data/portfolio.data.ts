@@ -9,7 +9,7 @@ export interface NavItem {
 }
 
 export interface SocialLink {
-  readonly id: 'linkedin' | 'email' | 'gitlab';
+  readonly id: 'linkedin' | 'email' | 'github' | 'gitlab';
   readonly label: string;
   readonly href: string;
   readonly icon: string;
@@ -87,6 +87,8 @@ export interface ContactData {
   readonly phoneDisplay: string;
   readonly linkedinUrl: string;
   readonly linkedinLabel: string;
+  readonly githubUrl: string;
+  readonly githubLabel: string;
   readonly location: string;
 }
 
@@ -135,14 +137,12 @@ export const PORTFOLIO_DATA: PortfolioData = {
         icon: 'mail_outline',
         external: false,
       },
-      // TODO: Replace href="#" with actual GitLab profile URL when ready
       {
-        id: 'gitlab',
-        label: 'GitLab',
-        href: '#',
+        id: 'github',
+        label: 'GitHub',
+        href: 'https://github.com/jothi-2002',
         icon: 'code',
-        external: false,
-        todoComment: 'TODO: Add GitLab profile URL here',
+        external: true,
       },
     ],
   },
@@ -160,20 +160,6 @@ export const PORTFOLIO_DATA: PortfolioData = {
         suffix: '+',
         label: 'Years Experience',
         displayText: '3+ Years Experience',
-      },
-      {
-        id: 'rest-endpoints',
-        numericValue: 6,
-        suffix: '',
-        label: 'REST API endpoints shipped',
-        displayText: '6 REST API endpoints shipped',
-      },
-      {
-        id: 'defects-fixed',
-        numericValue: 20,
-        suffix: '+',
-        label: 'defects fixed',
-        displayText: '20+ defects fixed',
       },
       {
         id: 'automation-activities',
@@ -226,6 +212,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
       icon: 'build_circle',
       skills: [
         'Git',
+        'GitHub',
         'GitLab',
         'Postman',
         'JIRA',
@@ -248,12 +235,11 @@ export const PORTFOLIO_DATA: PortfolioData = {
       projectSubtitle: 'Enterprise Business Process Automation Platform',
       highlights: [
         'Eliminated timeout errors on large datasets in the Purchase Order and Subscription modules by optimizing SQL queries and adding server-side pagination.',
-        'Designed and shipped 6 REST API endpoints for billing system integration (tenant, subscription, purchase order approval, SKU, customer, email).',
+        'Designed and integrated REST APIs for billing system integration (tenant, subscription, purchase order approval, SKU, customer, email).',
         'Closed a licensing gap by enforcing license-tier access to Enterprise Variables and Workflow Designer features.',
         'Delivered full stack features across .NET and Angular: Agent enable/disable with 3-role access, cloning for 3 SKU types, email attachments, Email Processing Order and Integration Gateway usage details.',
         'Built 5 Directory automation activities with unit tests, and added a DevExpress FilterBuilder for complex form-binding filters.',
         'Improved authentication and stability: Access Denied flow for LDAP users, AD-deleted user sync, and a more responsive BPA Designer.',
-        'Fixed 20+ production defects across Control Room, Form Designer and Account Manager.',
       ],
     },
     {
@@ -317,6 +303,8 @@ export const PORTFOLIO_DATA: PortfolioData = {
     phoneDisplay: '+91 6363185955',
     linkedinUrl: 'https://www.linkedin.com/in/jothim-dev',
     linkedinLabel: 'linkedin.com/in/jothim-dev',
+    githubUrl: 'https://github.com/jothi-2002',
+    githubLabel: 'github.com/jothi-2002',
     location: 'Bengaluru, India',
   },
 

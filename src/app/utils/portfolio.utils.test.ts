@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildGmailComposeUrl,
   buildMailtoUrl,
   filterSkillGroups,
   interpolateCountUp,
@@ -48,6 +49,23 @@ test('buildMailtoUrl constructs encoded mailto link for muthu25jothi@gmail.com',
   assert.equal(url.includes('alex%40tech.io'), true);
 });
 
+test('buildGmailComposeUrl constructs Gmail web compose URL for visitor Gmail tab', () => {
+  const url = buildGmailComposeUrl(PORTFOLIO_DATA.contact.email, {
+    name: 'Alex Kumar',
+    email: 'alex@tech.io',
+    subject: 'Role Inquiry',
+    message: 'Hello Jothi, let us connect.',
+  });
+
+  assert.equal(
+    url.startsWith(
+      'https://mail.google.com/mail/?view=cm&fs=1&to=muthu25jothi%40gmail.com&su=Role%20Inquiry&body='
+    ),
+    true
+  );
+  assert.equal(url.includes('Alex%20Kumar'), true);
+});
+
 test('filterSkillGroups returns all groups for "all" and specific group when filtered', () => {
   const all = filterSkillGroups(PORTFOLIO_DATA.skillGroups, 'all');
   assert.equal(all.length, 6);
@@ -62,4 +80,15 @@ test('interpolateCountUp returns 0 at start and target at completion', () => {
   assert.equal(interpolateCountUp(20, 0), 0);
   assert.equal(interpolateCountUp(20, 1), 20);
   assert.equal(interpolateCountUp(6, 0.5) >= 3, true);
+});
+
+test('portfolio data includes GitHub profile and omits defect/endpoint stat cards', () => {
+  const githubLink = PORTFOLIO_DATA.hero.socialLinks.find((link) => link.id === 'github');
+  assert.equal(githubLink?.href, 'https://github.com/jothi-2002');
+  assert.equal(PORTFOLIO_DATA.contact.githubUrl, 'https://github.com/jothi-2002');
+
+  const statIds = PORTFOLIO_DATA.about.stats.map((stat) => stat.id);
+  assert.equal(statIds.includes('rest-endpoints'), false);
+  assert.equal(statIds.includes('defects-fixed'), false);
+  assert.deepEqual(statIds, ['experience-years', 'automation-activities']);
 });

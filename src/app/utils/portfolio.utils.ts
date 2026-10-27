@@ -66,7 +66,7 @@ export function validateContactForm(payload: ContactFormPayload): ContactValidat
 }
 
 /**
- * Builds a properly encoded mailto URI for opening the user's email client.
+ * Builds a properly encoded mailto URI for opening the user's default OS email client.
  */
 export function buildMailtoUrl(recipientEmail: string, payload: ContactFormPayload): string {
   const subject = encodeURIComponent(payload.subject.trim());
@@ -78,6 +78,23 @@ export function buildMailtoUrl(recipientEmail: string, payload: ContactFormPaylo
   ];
   const body = encodeURIComponent(bodyLines.join('\n'));
   return `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+}
+
+/**
+ * Builds a Gmail Web Compose URL that opens the visitor's own Gmail account in a new browser tab
+ * with the recipient (To), Subject, and Body pre-filled.
+ */
+export function buildGmailComposeUrl(recipientEmail: string, payload: ContactFormPayload): string {
+  const to = encodeURIComponent(recipientEmail.trim());
+  const su = encodeURIComponent(payload.subject.trim());
+  const bodyLines = [
+    `Name: ${payload.name.trim()}`,
+    `Email: ${payload.email.trim()}`,
+    '',
+    payload.message.trim(),
+  ];
+  const body = encodeURIComponent(bodyLines.join('\n'));
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}&body=${body}`;
 }
 
 /**
