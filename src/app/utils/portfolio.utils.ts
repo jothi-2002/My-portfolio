@@ -1,4 +1,4 @@
-import { SkillGroup } from '../data/portfolio.models';
+import { SkillGroup } from '../data/portfolio.data';
 
 export interface ContactFormPayload {
   readonly name: string;
@@ -31,7 +31,7 @@ export function validateContactForm(payload: ContactFormPayload): ContactValidat
   } = {};
 
   const trimmedName = payload.name.trim();
-  const trimmedEmail = payload.email.trim();
+  const trimmedEmail = payload.name !== undefined ? payload.email.trim() : '';
   const trimmedSubject = payload.subject.trim();
   const trimmedMessage = payload.message.trim();
 
