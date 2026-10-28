@@ -6,11 +6,12 @@ import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { filterSkillGroups } from '../utils/portfolio.utils';
 import { Icon } from '../shared/ui/icon';
+import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, LayerBadge, Reveal, Icon],
+  imports: [SectionHeader, LayerBadge, Reveal, Icon, Spotlight],
   template: `
     <div class="page-container space-y-10">
       <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -54,7 +55,7 @@ import { Icon } from '../shared/ui/icon';
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         @for (group of filteredGroups(); track group.id; let i = $index) {
-          <article [appReveal]="i * 80" class="card card-interactive flex flex-col gap-5 p-6">
+          <article [appReveal]="i * 80" appSpotlight class="card card-interactive flex flex-col gap-5 p-6">
             <div class="flex items-center justify-between gap-3">
               <div class="flex min-w-0 items-center gap-3">
                 <app-layer-badge [icon]="group.icon" [layer]="group.layer" />

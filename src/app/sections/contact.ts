@@ -48,56 +48,79 @@ interface ContactChannel {
 
       <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
         <!-- Direct channels -->
-        <ul class="space-y-3 lg:col-span-5">
-          @for (channel of channels(); track channel.id; let i = $index) {
-            <li [appReveal]="i * 70" class="card flex items-center justify-between gap-4 p-4 sm:p-5">
-              <div class="flex min-w-0 items-center gap-3.5">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">
-                  <app-icon [name]="channel.icon" [size]="20" />
-                </span>
-                <div class="min-w-0">
-                  <div class="text-xs font-medium text-mute">{{ channel.label }}</div>
-                  @if (channel.href) {
-                    <a
-                      [href]="channel.href"
-                      [attr.target]="channel.external ? '_blank' : null"
-                      [attr.rel]="channel.external ? 'noopener noreferrer' : null"
-                      class="block truncate text-sm font-semibold text-ink transition-colors hover:text-brand"
-                      [class.font-mono]="channel.mono"
-                    >
-                      {{ channel.text }}
-                    </a>
-                  } @else {
-                    <div class="text-sm font-semibold text-ink">{{ channel.text }}</div>
-                  }
-                </div>
-              </div>
-
-              @if (channel.copyField && channel.copyValue) {
-                <button
-                  type="button"
-                  (click)="copyText(channel.copyValue, channel.copyField)"
-                  [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
-                  class="btn-small"
-                >
-                  <app-icon [name]="copiedField() === channel.copyField ? 'check' : 'content_copy'" [size]="14" />
-                  <span>{{ copiedField() === channel.copyField ? 'Copied' : 'Copy' }}</span>
-                </button>
-              } @else if (channel.external && channel.href) {
-                <a
-                  [href]="channel.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  [attr.aria-label]="'Visit ' + channel.label + ' profile (opens in new tab)'"
-                  class="btn-small"
-                >
-                  <span>Visit</span>
-                  <app-icon name="open_in_new" [size]="14" />
-                </a>
-              }
-            </li>
+        <div class="space-y-8 lg:col-span-5">
+          @if (primary(); as channel) {
+            <div appReveal class="space-y-4">
+              <p class="eyebrow">{{ channel.label }}</p>
+              <a
+                [href]="channel.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-underline block break-all font-display text-2xl font-bold tracking-[-0.02em] text-ink transition-colors hover:text-brand sm:text-3xl"
+              >
+                {{ channel.text }}
+              </a>
+              <button
+                type="button"
+                (click)="copyText(channel.copyValue!, 'email')"
+                [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
+                class="btn-small"
+              >
+                <app-icon [name]="copiedField() === 'email' ? 'check' : 'content_copy'" [size]="14" />
+                <span>{{ copiedField() === 'email' ? 'Copied' : 'Copy' }}</span>
+              </button>
+            </div>
           }
-        </ul>
+
+          <ul>
+            @for (channel of others(); track channel.id; let i = $index) {
+              <li [appReveal]="i * 70" class="flex items-center justify-between gap-4 border-b border-line py-4 first:border-t">
+                <div class="flex min-w-0 items-center gap-3.5">
+                  <app-icon [name]="channel.icon" [size]="20" class="text-brand" />
+                  <div class="min-w-0">
+                    <div class="text-xs font-medium text-mute">{{ channel.label }}</div>
+                    @if (channel.href) {
+                      <a
+                        [href]="channel.href"
+                        [attr.target]="channel.external ? '_blank' : null"
+                        [attr.rel]="channel.external ? 'noopener noreferrer' : null"
+                        class="block truncate text-sm font-semibold text-ink transition-colors hover:text-brand"
+                        [class.font-mono]="channel.mono"
+                      >
+                        {{ channel.text }}
+                      </a>
+                    } @else {
+                      <div class="text-sm font-semibold text-ink">{{ channel.text }}</div>
+                    }
+                  </div>
+                </div>
+
+                @if (channel.copyField && channel.copyValue) {
+                  <button
+                    type="button"
+                    (click)="copyText(channel.copyValue, channel.copyField)"
+                    [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
+                    class="btn-small"
+                  >
+                    <app-icon [name]="copiedField() === channel.copyField ? 'check' : 'content_copy'" [size]="14" />
+                    <span>{{ copiedField() === channel.copyField ? 'Copied' : 'Copy' }}</span>
+                  </button>
+                } @else if (channel.external && channel.href) {
+                  <a
+                    [href]="channel.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [attr.aria-label]="'Visit ' + channel.label + ' profile (opens in new tab)'"
+                    class="btn-small"
+                  >
+                    <span>Visit</span>
+                    <app-icon name="open_in_new" [size]="14" />
+                  </a>
+                }
+              </li>
+            }
+          </ul>
+        </div>
 
         <!-- Message composer -->
         <div appReveal="120" class="lg:col-span-7">
@@ -263,6 +286,9 @@ export class Contact {
       { id: 'location', label: 'Location', icon: 'place', text: c.location },
     ];
   });
+
+  protected readonly primary = computed(() => this.channels()[0]);
+  protected readonly others = computed(() => this.channels().slice(1));
 
   /** Validation message for a field, shown only after the first submit attempt. */
   protected errorFor(field: keyof ReturnType<typeof validateContactForm>['errors']): string | undefined {

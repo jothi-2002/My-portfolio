@@ -3,11 +3,12 @@ import { EducationItem } from '../data/portfolio.models';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { Icon } from '../shared/ui/icon';
+import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-education',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, Reveal, Icon],
+  imports: [SectionHeader, Reveal, Icon, Spotlight],
   template: `
     <div class="page-container space-y-10">
       <app-section-header index="06" eyebrow="Academic Foundation" title="Education" headingId="education-heading" />
@@ -16,7 +17,7 @@ import { Icon } from '../shared/ui/icon';
         @for (edu of education(); track edu.institution; let i = $index) {
           <article
             [appReveal]="i * 100"
-            class="card card-interactive flex flex-col justify-between gap-6 p-6 sm:flex-row sm:items-center sm:p-8"
+            appSpotlight class="card card-interactive flex flex-col justify-between gap-6 p-6 sm:flex-row sm:items-center sm:p-8"
           >
             <div class="flex items-start gap-4">
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">

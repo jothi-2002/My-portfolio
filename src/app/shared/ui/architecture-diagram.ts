@@ -22,7 +22,7 @@ import { Icon } from './icon';
               </span>
             }
             <app-layer-badge [icon]="node.icon" [layer]="node.layer" />
-            <div class="min-w-0 flex-1 space-y-2 rounded-xl border bg-surface p-3.5 {{ styles[node.layer].border }}">
+            <div class="min-w-0 flex-1 space-y-2 rounded-xl border bg-surface p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card {{ styles[node.layer].border }}">
               <div>
                 <p class="text-sm font-semibold text-ink">{{ node.label }}</p>
                 <p class="text-xs leading-relaxed text-soft">{{ node.detail }}</p>

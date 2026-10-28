@@ -5,13 +5,14 @@ import { LayerBadge } from '../shared/ui/layer-badge';
 import { Reveal } from '../shared/ui/reveal';
 import { TechChips } from '../shared/ui/tech-chips';
 import { Icon } from '../shared/ui/icon';
+import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LayerBadge, TechChips, Reveal, Icon],
+  imports: [LayerBadge, TechChips, Reveal, Icon, Spotlight],
   template: `
-    <section id="hero" aria-labelledby="hero-heading" class="relative isolate overflow-hidden pb-20 pt-14 sm:pb-28 sm:pt-20 lg:pt-24">
+    <section id="hero" aria-labelledby="hero-heading" class="grain relative isolate overflow-hidden pb-24 pt-12 sm:pb-32 sm:pt-16 lg:pt-20">
       <!-- Atmosphere: grid + soft colour glows -->
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
         <div class="bg-grid absolute inset-0 opacity-70"></div>
@@ -26,8 +27,8 @@ import { Icon } from '../shared/ui/icon';
             <div appReveal class="flex flex-wrap items-center gap-3 text-sm font-medium text-soft">
               <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1.5 shadow-card">
                 <span class="relative flex h-2 w-2">
-                  <span class="pulse-ring absolute inset-0 rounded-full bg-api"></span>
-                  <span class="relative h-2 w-2 rounded-full bg-api"></span>
+                  <span class="pulse-ring absolute inset-0 rounded-full bg-brand"></span>
+                  <span class="relative h-2 w-2 rounded-full bg-brand"></span>
                 </span>
                 <span class="text-ink">{{ hero().currentRole }}</span>
               </span>
@@ -41,11 +42,11 @@ import { Icon } from '../shared/ui/icon';
               <p class="eyebrow">{{ hero().kicker }}</p>
               <h1
                 id="hero-heading"
-                class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl lg:text-7xl"
+                class="font-display text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-ink text-balance sm:text-6xl lg:text-[5rem]"
               >
                 <span class="block">{{ nameParts().first }}</span>&ngsp;<span class="block">{{ nameParts().last }}</span>
               </h1>
-              <p class="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+              <p class="font-display text-2xl font-bold tracking-[-0.02em] sm:text-3xl">
                 <span class="text-gradient">{{ hero().title }}</span>
               </p>
             </div>
@@ -69,7 +70,7 @@ import { Icon } from '../shared/ui/icon';
               appReveal="280"
               [href]="'#' + hero().featured.targetId"
               (click)="goTo($event, hero().featured.targetId)"
-              class="card card-interactive group flex max-w-xl items-center justify-between gap-4 p-4"
+              appSpotlight class="card card-interactive group flex max-w-xl items-center justify-between gap-4 p-4"
             >
               <span class="flex min-w-0 items-center gap-3.5">
                 <app-layer-badge icon="verified" layer="core" />

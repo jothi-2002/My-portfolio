@@ -22,16 +22,19 @@ import { Icon } from '../shared/ui/icon';
       <div class="space-y-8">
         @for (project of projects(); track project.id) {
           @if (!project.isPlaceholder) {
-            <article appReveal class="card overflow-hidden">
+            <article appReveal class="card overflow-hidden !shadow-lift">
               <div class="grid grid-cols-1 lg:grid-cols-12">
                 <!-- Case study narrative -->
                 <div class="space-y-8 p-6 sm:p-10 lg:col-span-7">
                   <header class="space-y-3">
                     <div class="flex flex-wrap items-center gap-3">
                       <span class="rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">Case study</span>
-                      <span class="text-xs font-medium text-mute">{{ project.subtitle }}</span>
+                      <span class="inline-flex items-center gap-1.5 text-xs font-medium text-soft">
+                        <app-icon name="verified" [size]="16" class="text-brand" />
+                        {{ project.subtitle }}
+                      </span>
                     </div>
-                    <h3 class="font-display text-3xl font-bold tracking-tight text-ink">{{ project.title }}</h3>
+                    <h3 class="font-display text-4xl font-bold tracking-[-0.025em] text-ink sm:text-5xl">{{ project.title }}</h3>
                     <p class="text-base leading-relaxed text-soft sm:text-lg">{{ project.summary }}</p>
                   </header>
 

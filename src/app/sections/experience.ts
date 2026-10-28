@@ -4,11 +4,12 @@ import { LAYER_STYLES } from '../shared/layer';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { TechChips } from '../shared/ui/tech-chips';
+import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-experience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, TechChips, Reveal],
+  imports: [SectionHeader, TechChips, Reveal, Spotlight],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -35,7 +36,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                 }
               </span>
 
-              <div class="card card-interactive space-y-6 p-6 sm:p-8">
+              <div appSpotlight class="card card-interactive space-y-6 p-6 sm:p-8">
                 <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                   <div class="space-y-1.5">
                     <div class="flex flex-wrap items-center gap-3">

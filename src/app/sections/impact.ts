@@ -6,11 +6,12 @@ import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { TechChips } from '../shared/ui/tech-chips';
 import { Icon } from '../shared/ui/icon';
+import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-impact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, LayerBadge, TechChips, Reveal, Icon],
+  imports: [SectionHeader, LayerBadge, TechChips, Reveal, Icon, Spotlight],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -23,7 +24,7 @@ import { Icon } from '../shared/ui/icon';
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         @for (item of items(); track item.id; let i = $index) {
-          <article [appReveal]="(i % 2) * 120" class="card card-interactive flex flex-col gap-6 p-6 sm:p-8">
+          <article [appReveal]="(i % 2) * 120" appSpotlight class="card card-interactive flex flex-col gap-6 p-6 sm:p-8">
             <header class="flex items-start gap-4">
               <app-layer-badge [icon]="item.icon" [layer]="item.layer" size="lg" />
               <div class="space-y-1">
