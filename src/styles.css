@@ -2,116 +2,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ==========================================================================
-   Design tokens
-   Raw values live on :root / .dark; Tailwind utilities (bg-canvas, text-ink,
-   text-api, ...) read them through `@theme inline`, so components never need
-   `dark:` variants for colour.
-   ========================================================================== */
-:root {
-  color-scheme: light;
-
-  --c-canvas: #f6f7fb;
-  --c-surface: #ffffff;
-  --c-raised: #eef0f8;
-  --c-line: #dfe3ee;
-  --c-ink: #0e1528;
-  --c-soft: #46526b;
-  --c-mute: #66728b;
-
-  --c-brand: #4453d9;
-  --c-brand-strong: #4453d9;
-  --c-on-brand: #ffffff;
-
-  /* Stack layers: used consistently for skills, highlights and diagrams */
-  --c-ui: #4453d9;
-  --c-api: #0f766e;
-  --c-data: #b45309;
-  --c-security: #7e3fc4;
-  --c-ops: #0369a1;
-  --c-danger: #c2272d;
-
-  --s-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
-  --s-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(68 83 217 / 0.28);
-}
-
-.dark {
-  color-scheme: dark;
-
-  --c-canvas: #070b14;
-  --c-surface: #0d1321;
-  --c-raised: #141c2f;
-  --c-line: #1d2740;
-  --c-ink: #eaeef8;
-  --c-soft: #aab5cc;
-  --c-mute: #7d8aa5;
-
-  --c-brand: #8b98ff;
-  --c-brand-strong: #5666f0;
-  --c-on-brand: #ffffff;
-
-  --c-ui: #8b98ff;
-  --c-api: #2dd4bf;
-  --c-data: #fbbf24;
-  --c-security: #c4a1ff;
-  --c-ops: #5cc4f5;
-  --c-danger: #ff7b82;
-
-  --s-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
-  --s-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 44px -18px rgb(86 102 240 / 0.45);
-}
-
-@theme inline {
-  --color-canvas: var(--c-canvas);
-  --color-surface: var(--c-surface);
-  --color-raised: var(--c-raised);
-  --color-line: var(--c-line);
-  --color-ink: var(--c-ink);
-  --color-soft: var(--c-soft);
-  --color-mute: var(--c-mute);
-  --color-brand: var(--c-brand);
-  --color-brand-strong: var(--c-brand-strong);
-  --color-on-brand: var(--c-on-brand);
-  --color-ui: var(--c-ui);
-  --color-api: var(--c-api);
-  --color-data: var(--c-data);
-  --color-security: var(--c-security);
-  --color-ops: var(--c-ops);
-  --color-danger: var(--c-danger);
-
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  --shadow-card: var(--s-card);
-  --shadow-lift: var(--s-lift);
-
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
 @layer base {
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-  }
-
-  body {
-    background-color: var(--c-canvas);
-    color: var(--c-ink);
-    font-feature-settings: 'cv11', 'ss01';
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  ::selection {
-    background: color-mix(in srgb, var(--c-brand) 30%, transparent);
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--c-brand);
-    outline-offset: 3px;
-    border-radius: 6px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -124,173 +23,36 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
   }
 }
 
-/* ==========================================================================
-   Reusable building blocks
-   ========================================================================== */
-@layer components {
-  .page-container {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
-  }
-
-  .section {
-    @apply scroll-mt-16 py-20 sm:py-28;
-  }
-
-  .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand;
-  }
-
-  .section-title {
-    @apply font-display text-3xl font-bold tracking-tight text-ink text-balance sm:text-4xl;
-  }
-
-  .card {
-    @apply rounded-2xl border border-line bg-surface shadow-card;
-    transition:
-      border-color 200ms,
-      box-shadow 200ms,
-      transform 200ms var(--ease-out-expo);
-  }
-
-  .card-interactive:hover {
-    border-color: color-mix(in srgb, var(--c-brand) 45%, var(--c-line));
-    box-shadow: var(--s-lift);
-    transform: translateY(-2px);
-  }
-
-  .btn,
-  .btn-primary,
-  .btn-secondary {
-    @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200;
-  }
-
-  .btn-primary {
-    @apply bg-brand-strong text-on-brand shadow-lift hover:brightness-110 active:scale-[0.98];
-  }
-
-  .btn-secondary {
-    @apply border border-line bg-surface text-ink hover:border-brand;
-  }
-
-  .btn-small {
-    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg border border-line bg-raised px-2.5 py-1.5 text-xs font-medium text-soft transition-colors hover:border-brand hover:text-brand;
-  }
-
-  .chip {
-    @apply inline-flex items-center rounded-lg border border-line bg-raised px-2.5 py-1 font-mono text-xs font-medium text-soft;
-  }
-
-  .field-input {
-    @apply w-full rounded-xl border border-line bg-canvas px-3.5 py-2.5 text-sm text-ink placeholder:text-mute transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25;
-  }
-
-  .text-gradient {
-    background-image: linear-gradient(110deg, var(--c-brand) 10%, var(--c-api) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* Faint engineering-paper grid that fades toward its edges */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--c-line) 70%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--c-line) 70%, transparent) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-  }
-}
-
-/* ==========================================================================
-   Motion
-   ========================================================================== */
-
-/* Theme toggle cross-fade */
+/* View Transition API smoothing for theme toggle */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 240ms;
-  animation-timing-function: var(--ease-out-expo);
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Scroll reveal. The attribute is only ever set client-side by RevealDirective,
-   so server-rendered HTML stays fully visible without JavaScript. */
-[data-reveal] {
-  transition:
-    opacity 700ms var(--ease-out-expo),
-    transform 700ms var(--ease-out-expo);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-[data-reveal='hidden'] {
-  opacity: 0;
-  transform: translateY(18px);
-}
-
-/* A pulse of light travelling down a connector, so the UI -> API -> Data flow reads as live */
-@keyframes flow-line {
+@keyframes fadeSlideUp {
   from {
-    background-position: 0 -80%;
-  }
-  to {
-    background-position: 0 180%;
-  }
-}
-
-.flow-line {
-  background-image: linear-gradient(to bottom, transparent, var(--c-brand), transparent);
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  animation: flow-line 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  100% {
-    transform: scale(2.6);
     opacity: 0;
-  }
-}
-
-.pulse-ring {
-  animation: pulse-ring 2s ease-out infinite;
-}
-
-/* Reading-progress bar driven purely by CSS scroll timelines (progressive enhancement) */
-@keyframes grow-x {
-  from {
-    transform: scaleX(0);
+    transform: translateY(14px);
   }
   to {
-    transform: scaleX(1);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@supports (animation-timeline: scroll()) {
-  .scroll-progress {
-    transform-origin: left;
-    animation: grow-x linear both;
-    animation-timeline: scroll(root block);
-  }
+.reveal-section {
+  animation: fadeSlideUp 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@supports not (animation-timeline: scroll()) {
-  .scroll-progress {
-    display: none;
-  }
-}
-
-/* Slim scrollbar */
+/* Subtle custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -298,11 +60,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--c-mute) 35%, transparent);
-  border-radius: 6px;
-  border: 2px solid var(--c-canvas);
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--c-brand) 60%, transparent);
+  background: rgba(59, 130, 246, 0.5);
 }

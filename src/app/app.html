@@ -1,50 +1,124 @@
-<div class="flex min-h-screen flex-col bg-canvas text-ink">
+<div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
   <!-- Skip to main content link for keyboard accessibility -->
   <a
     href="#main-content"
-    class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-lg focus:bg-brand-strong focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-on-brand"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
   >
     Skip to main content
   </a>
 
-  <app-navbar [brandName]="data().hero.name" [navItems]="data().navItems" />
+  <!-- Sticky Top Navigation -->
+  <app-navbar
+    [brandName]="data().hero.name"
+    [navItems]="data().navItems"
+    [activeSection]="activeSection()"
+    [(mobileMenuOpen)]="mobileMenuOpen"
+    (sectionSelected)="scrollToSection($event)"
+  />
 
+  <!-- Main Content -->
   <main id="main-content" class="flex-1">
-    <app-hero [hero]="data().hero" />
+    <!-- Hero Section (Above the fold) -->
+    <app-hero
+      [hero]="data().hero"
+      (navigateToSection)="scrollToSection($event)"
+    />
 
-    <section id="about" aria-labelledby="about-heading" class="section">
+    <!-- About Section -->
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      class="scroll-mt-20 py-16 sm:py-20 border-b border-slate-200/70 dark:border-slate-800/70"
+    >
       <app-about [about]="data().about" />
     </section>
 
-    <section id="skills" aria-labelledby="skills-heading" class="section border-t border-line bg-surface/40">
-      <app-skills [skillGroups]="data().skillGroups" />
+    <!-- Below-the-fold sections lazy-loaded with @defer (on viewport; when eagerLoadAll()) -->
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      class="scroll-mt-20 py-16 sm:py-20 border-b border-slate-200/70 dark:border-slate-800/70"
+    >
+      @defer (on viewport; when eagerLoadAll()) {
+        <div class="reveal-section">
+          <app-skills [skillGroups]="data().skillGroups" />
+        </div>
+      } @placeholder {
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-[20rem] flex items-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Loading skills...</p>
+        </div>
+      }
     </section>
 
-    <section id="experience" aria-labelledby="experience-heading" class="section border-t border-line">
-      <app-experience [experiences]="data().experiences" />
+    <section
+      id="experience"
+      aria-labelledby="experience-heading"
+      class="scroll-mt-20 py-16 sm:py-20 border-b border-slate-200/70 dark:border-slate-800/70"
+    >
+      @defer (on viewport; when eagerLoadAll()) {
+        <div class="reveal-section">
+          <app-experience [experiences]="data().experiences" />
+        </div>
+      } @placeholder {
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-[24rem] flex items-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Loading experience timeline...</p>
+        </div>
+      }
     </section>
 
-    <section id="impact" aria-labelledby="impact-heading" class="section border-t border-line bg-surface/40">
-      <app-impact [items]="data().impact" />
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      class="scroll-mt-20 py-16 sm:py-20 border-b border-slate-200/70 dark:border-slate-800/70"
+    >
+      @defer (on viewport; when eagerLoadAll()) {
+        <div class="reveal-section">
+          <app-projects [projects]="data().projects" />
+        </div>
+      } @placeholder {
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-[18rem] flex items-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Loading projects...</p>
+        </div>
+      }
     </section>
 
-    <section id="projects" aria-labelledby="projects-heading" class="section border-t border-line">
-      <app-projects [projects]="data().projects" />
+    <section
+      id="education"
+      aria-labelledby="education-heading"
+      class="scroll-mt-20 py-16 sm:py-20 border-b border-slate-200/70 dark:border-slate-800/70"
+    >
+      @defer (on viewport; when eagerLoadAll()) {
+        <div class="reveal-section">
+          <app-education [education]="data().education" />
+        </div>
+      } @placeholder {
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-[12rem] flex items-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Loading education...</p>
+        </div>
+      }
     </section>
 
-    <section id="education" aria-labelledby="education-heading" class="section border-t border-line bg-surface/40">
-      <app-education [education]="data().education" />
-    </section>
-
-    <section id="contact" aria-labelledby="contact-heading" class="section border-t border-line">
-      <app-contact [contact]="data().contact" />
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      class="scroll-mt-20 py-16 sm:py-20"
+    >
+      @defer (on viewport; when eagerLoadAll()) {
+        <div class="reveal-section">
+          <app-contact [contact]="data().contact" />
+        </div>
+      } @placeholder {
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-h-[22rem] flex items-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Loading contact section...</p>
+        </div>
+      }
     </section>
   </main>
 
+  <!-- Footer -->
   <app-footer
-    [name]="data().hero.name"
     [copyright]="data().footerCopyright"
     [navItems]="data().navItems"
-    [socialLinks]="data().hero.socialLinks"
+    (navigateToSection)="scrollToSection($event)"
   />
 </div>
