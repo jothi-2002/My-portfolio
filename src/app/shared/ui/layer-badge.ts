@@ -1,0 +1,31 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { StackLayer } from '../../data/portfolio.models';
+import { LAYER_STYLES } from '../layer';
+
+/** Rounded icon tile tinted with the colour of a stack layer. */
+@Component({
+  selector: 'app-layer-badge',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatIconModule],
+  host: { class: 'inline-flex shrink-0' },
+  template: `
+    <span
+      aria-hidden="true"
+      class="flex items-center justify-center rounded-xl {{ sizeClass() }} {{ style().softBg }} {{ style().text }}"
+    >
+      <mat-icon class="!h-auto !w-auto !leading-none" [style.font-size.px]="iconPx()">{{ icon() }}</mat-icon>
+    </span>
+  `,
+})
+export class LayerBadge {
+  readonly icon = input.required<string>();
+  readonly layer = input<StackLayer>('core');
+  readonly size = input<'sm' | 'md' | 'lg'>('md');
+
+  protected readonly style = computed(() => LAYER_STYLES[this.layer()]);
+  protected readonly sizeClass = computed(
+    () => ({ sm: 'h-8 w-8', md: 'h-10 w-10', lg: 'h-12 w-12' })[this.size()],
+  );
+  protected readonly iconPx = computed(() => ({ sm: 18, md: 20, lg: 24 })[this.size()]);
+}
