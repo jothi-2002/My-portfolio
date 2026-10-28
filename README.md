@@ -32,10 +32,11 @@ Everything shown on the page comes from `src/app/data/portfolio.data.ts`. Add a 
 
 ## Design system
 
-- **Palette:** ink-navy dark theme with a bright teal accent, and a warm-paper light theme with deep teal. All colours are semantic tokens in `src/styles.css` (`bg-canvas`, `text-ink`, `text-soft`, `border-line`, `text-brand`, ...) that switch with the `.dark` class, so components need no `dark:` variants. Every text/background pair is at least 4.5:1.
-- **Type:** Bricolage Grotesque (display) + Inter (body) + JetBrains Mono (labels, code-like details), loaded from Google Fonts with `display=swap`.
-- **Stack layers:** each part of the stack has a colour, used consistently across skills, experience highlights and the architecture diagram: Frontend `ui`, Backend `api`, Database `data`, Security `security`, Delivery `ops`, Full stack `core` (the brand teal).
-- **Micro-interactions:** floating glass nav with active-link highlight and CSS scroll-progress line, pointer-following card glow (`Spotlight` directive), draw-in link underlines, staggered scroll reveals (`Reveal`), count-up stats, and theme change via the View Transitions API. Motion is progressive enhancement: nothing is hidden on the server or without JS, and everything respects `prefers-reduced-motion`.
+- **Matte only:** flat, solid colour throughout. There are no gradients, glows, glossy sheens, glass blur or grain. Depth comes from hairline borders and small neutral shadows.
+- **Palette:** matte charcoal (dark) and warm stone (light) neutrals with one clay accent. All colours are semantic tokens in `src/styles.css` (`bg-canvas`, `text-ink`, `text-soft`, `border-line`, `text-brand`, ...) that switch with the `.dark` class, so components need no `dark:` variants. Every text/background pair is at least 4.5:1.
+- **Type:** Instrument Serif (display headlines, single weight, real italic) + Geist (body and UI) + Geist Mono (labels, chips), loaded from Google Fonts with `display=swap`.
+- **Stack layers:** each part of the stack has a muted, dusty colour used consistently across skills, experience highlights and the architecture diagram: Frontend slate blue `ui`, Backend sage `api`, Database ochre `data`, Security mauve `security`, Delivery dusty rose `ops`, Full stack clay `core`.
+- **Interactions:** floating nav with active-link highlight and a CSS scroll-progress line, hover lift on cards and buttons, staggered scroll reveals (`Reveal`), count-up stats, and theme change via the View Transitions API. Motion is progressive enhancement: nothing is hidden on the server or without JS, and everything respects `prefers-reduced-motion`.
 
 ## Performance and SEO notes
 

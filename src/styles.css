@@ -11,58 +11,56 @@
 :root {
   color-scheme: light;
 
-  /* Warm paper surfaces with ink-navy text */
-  --c-canvas: #f6f2ea;
-  --c-surface: #fffdf8;
-  --c-raised: #eee8db;
-  --c-line: #ddd5c4;
-  --c-ink: #111923;
-  --c-soft: #475466;
-  --c-mute: #566273;
+  /* Matte stone neutrals with one clay accent. Flat colour only: no gradients, glows or gloss. */
+  --c-canvas: #eeebe4;
+  --c-surface: #f7f5f0;
+  --c-raised: #e4e0d6;
+  --c-line: #d2cdc2;
+  --c-ink: #1e1f1d;
+  --c-soft: #494843;
+  --c-mute: #5a564f;
 
-  --c-brand: #0b6f66;
-  --c-brand-strong: #0f766e;
-  --c-on-brand: #ffffff;
+  --c-brand: #8e4429;
+  --c-brand-strong: #1e1f1d;
+  --c-on-brand: #eeebe4;
 
-  /* Stack layers: used consistently for skills, highlights and diagrams */
-  --c-ui: #4a54c8;
-  --c-api: #0a6a99;
-  --c-data: #8f4306;
-  --c-security: #7a3dbf;
-  --c-ops: #b0382a;
-  --c-danger: #c2272d;
+  /* Muted, dusty tones reserved for the stack layers (skills, highlights, diagrams) */
+  --c-ui: #3f537a; /* slate blue */
+  --c-api: #38634e; /* sage */
+  --c-data: #735619; /* ochre */
+  --c-security: #66507c; /* mauve */
+  --c-ops: #86404d; /* dusty rose */
+  --c-danger: #94362e;
 
-  --s-card: 0 1px 2px rgb(60 45 20 / 0.05), 0 10px 28px -14px rgb(60 45 20 / 0.16);
-  --s-lift: 0 2px 4px rgb(60 45 20 / 0.06), 0 22px 44px -18px rgb(15 118 110 / 0.34);
-  --grain-opacity: 0.5;
+  --s-card: 0 1px 2px rgb(30 31 29 / 0.08);
+  --s-lift: 0 2px 6px rgb(30 31 29 / 0.12);
 }
 
 .dark {
   color-scheme: dark;
 
-  /* Ink-navy base with a bright teal accent */
-  --c-canvas: #070d14;
-  --c-surface: #0c1520;
-  --c-raised: #121e2c;
-  --c-line: #1c2b3d;
-  --c-ink: #e9eff6;
-  --c-soft: #a9b8c9;
-  --c-mute: #7889a1;
+  /* Matte charcoal with a clay accent */
+  --c-canvas: #1a1b1a;
+  --c-surface: #212220;
+  --c-raised: #292a28;
+  --c-line: #383a37;
+  --c-ink: #e8e6e1;
+  --c-soft: #b8b6af;
+  --c-mute: #9c9a93;
 
-  --c-brand: #3fdcc6;
-  --c-brand-strong: #3fdcc6;
-  --c-on-brand: #04201c;
+  --c-brand: #d9967a;
+  --c-brand-strong: #d9967a;
+  --c-on-brand: #1a1b1a;
 
-  --c-ui: #9aa6ff;
-  --c-api: #56c8f5;
-  --c-data: #f6b94d;
-  --c-security: #c9a8ff;
-  --c-ops: #ff9d8c;
-  --c-danger: #ff7b82;
+  --c-ui: #94a9c9; /* slate blue */
+  --c-api: #93b9a1; /* sage */
+  --c-data: #d0b073; /* ochre */
+  --c-security: #bca3ca; /* mauve */
+  --c-ops: #d393a0; /* dusty rose */
+  --c-danger: #e0948d;
 
-  --s-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 14px 34px -18px rgb(0 0 0 / 0.65);
-  --s-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 22px 48px -20px rgb(63 220 198 / 0.4);
-  --grain-opacity: 0.7;
+  --s-card: 0 1px 2px rgb(0 0 0 / 0.35);
+  --s-lift: 0 2px 6px rgb(0 0 0 / 0.45);
 }
 
 @theme inline {
@@ -83,9 +81,9 @@
   --color-ops: var(--c-ops);
   --color-danger: var(--c-danger);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Bricolage Grotesque', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --shadow-card: var(--s-card);
   --shadow-lift: var(--s-lift);
@@ -106,6 +104,11 @@
     font-feature-settings: 'cv11', 'ss01';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  .font-display {
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
   }
 
   ::selection {
@@ -143,62 +146,39 @@
   }
 
   .section {
-    @apply scroll-mt-20 py-24 sm:py-32;
+    @apply relative scroll-mt-20 py-24 sm:py-32;
   }
 
   .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand;
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-brand;
   }
 
   .section-title {
-    @apply font-display text-4xl font-bold tracking-[-0.025em] text-ink text-balance sm:text-5xl;
+    @apply font-display text-5xl font-normal leading-[1.02] tracking-[-0.015em] text-ink text-balance sm:text-6xl;
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-surface shadow-card;
-    position: relative;
-    isolation: isolate;
+    @apply rounded-lg border border-line bg-surface shadow-card;
     transition:
-      border-color 220ms,
-      box-shadow 220ms,
-      transform 220ms var(--ease-out-expo);
-  }
-
-  /* Pointer-following highlight (position set by the Spotlight directive); invisible without a hover-capable pointer */
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: radial-gradient(
-      420px circle at var(--mx, 50%) var(--my, 0%),
-      color-mix(in srgb, var(--c-brand) 14%, transparent),
-      transparent 65%
-    );
-    opacity: 0;
-    transition: opacity 300ms;
-    pointer-events: none;
+      border-color 200ms,
+      box-shadow 200ms,
+      transform 200ms var(--ease-out-expo);
   }
 
   .card-interactive:hover {
-    border-color: color-mix(in srgb, var(--c-brand) 50%, var(--c-line));
+    border-color: var(--c-brand);
     box-shadow: var(--s-lift);
     transform: translateY(-2px);
-  }
-
-  .card-interactive:hover::before {
-    opacity: 1;
   }
 
   .btn,
   .btn-primary,
   .btn-secondary {
-    @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200;
+    @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-md px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-brand-strong text-on-brand shadow-lift hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0 active:scale-[0.98];
+    @apply border border-transparent bg-brand-strong text-on-brand hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0 active:scale-[0.98];
   }
 
   .btn-secondary {
@@ -206,56 +186,29 @@
   }
 
   .btn-small {
-    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg border border-line bg-raised px-2.5 py-1.5 text-xs font-medium text-soft transition-colors hover:border-brand hover:text-brand;
+    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-raised px-2.5 py-1.5 text-xs font-medium text-soft transition-colors hover:border-brand hover:text-brand;
   }
 
   .chip {
-    @apply inline-flex items-center rounded-lg border border-line bg-raised px-2.5 py-1 font-mono text-xs font-medium text-soft;
+    @apply inline-flex items-center rounded-md border border-line bg-raised px-2.5 py-1 font-mono text-[0.7rem] font-medium text-soft;
   }
 
   .field-input {
-    @apply w-full rounded-xl border border-line bg-canvas px-3.5 py-2.5 text-sm text-ink placeholder:text-mute transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25;
+    @apply w-full rounded-md border border-line bg-canvas px-3.5 py-3 text-sm text-ink placeholder:text-mute transition-colors focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
   }
 
-  .text-gradient {
-    background-image: linear-gradient(110deg, var(--c-brand) 5%, var(--c-ui) 95%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* Faint engineering-paper grid that fades toward its edges */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--c-line) 60%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--c-line) 60%, transparent) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-  }
-
-  /* Fine paper grain for tactility; static, so it costs no scroll performance */
-  .grain::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -5;
-    pointer-events: none;
-    opacity: calc(var(--grain-opacity) * 0.09);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Underline that draws in from the left */
+  /* Underline that fades in on hover/focus (plain text-decoration, so contrast stays checkable) */
   .link-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    background-size: 0 1px;
-    transition: background-size 280ms var(--ease-out-expo);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color 200ms;
   }
 
   .link-underline:hover,
   .link-underline:focus-visible {
-    background-size: 100% 1px;
+    text-decoration-color: currentColor;
   }
 }
 
@@ -282,38 +235,6 @@
 [data-reveal='hidden'] {
   opacity: 0;
   transform: translateY(18px);
-}
-
-/* A pulse of light travelling down a connector, so the UI -> API -> Data flow reads as live */
-@keyframes flow-line {
-  from {
-    background-position: 0 -80%;
-  }
-  to {
-    background-position: 0 180%;
-  }
-}
-
-.flow-line {
-  background-image: linear-gradient(to bottom, transparent, var(--c-brand), transparent);
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  animation: flow-line 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-.pulse-ring {
-  animation: pulse-ring 2s ease-out infinite;
 }
 
 /* Reading-progress bar driven purely by CSS scroll timelines (progressive enhancement) */

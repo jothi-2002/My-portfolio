@@ -6,12 +6,11 @@ import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { TechChips } from '../shared/ui/tech-chips';
 import { Icon } from '../shared/ui/icon';
-import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-impact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, LayerBadge, TechChips, Reveal, Icon, Spotlight],
+  imports: [SectionHeader, LayerBadge, TechChips, Reveal, Icon],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -24,14 +23,14 @@ import { Spotlight } from '../shared/ui/spotlight';
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         @for (item of items(); track item.id; let i = $index) {
-          <article [appReveal]="(i % 2) * 120" appSpotlight class="card card-interactive flex flex-col gap-6 p-6 sm:p-8">
+          <article [appReveal]="(i % 2) * 120" class="card card-interactive flex flex-col gap-6 p-6 sm:p-8">
             <header class="flex items-start gap-4">
               <app-layer-badge [icon]="item.icon" [layer]="item.layer" size="lg" />
               <div class="space-y-1">
                 <p class="text-xs font-semibold uppercase tracking-wider {{ layerStyles[item.layer].text }}">
                   {{ layerStyles[item.layer].label }}
                 </p>
-                <h3 class="font-display text-lg font-bold leading-snug text-ink sm:text-xl">{{ item.title }}</h3>
+                <h3 class="font-display text-2xl font-normal leading-snug text-ink sm:text-3xl">{{ item.title }}</h3>
               </div>
             </header>
 
@@ -44,7 +43,7 @@ import { Spotlight } from '../shared/ui/spotlight';
                 <dt class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Approach</dt>
                 <dd class="text-soft">{{ item.approach }}</dd>
               </div>
-              <div class="grid grid-cols-[5.5rem_1fr] gap-3 rounded-xl p-3 -mx-3 {{ layerStyles[item.layer].softBg }}">
+              <div class="grid grid-cols-[5.5rem_1fr] gap-3 rounded-md p-3 -mx-3 {{ layerStyles[item.layer].softBg }}">
                 <dt class="font-mono text-xs font-medium uppercase tracking-wider {{ layerStyles[item.layer].text }}">Outcome</dt>
                 <dd class="flex items-start gap-2 font-medium text-ink">
                   <app-icon name="check_circle" [size]="20" class="shrink-0 {{ layerStyles[item.layer].text }}" />

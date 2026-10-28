@@ -56,7 +56,7 @@ interface ContactChannel {
                 [href]="channel.href"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="link-underline block break-all font-display text-2xl font-bold tracking-[-0.02em] text-ink transition-colors hover:text-brand sm:text-3xl"
+                class="link-underline block break-all font-display text-3xl font-normal tracking-[-0.005em] text-ink transition-colors hover:text-brand sm:text-4xl"
               >
                 {{ channel.text }}
               </a>
@@ -202,7 +202,7 @@ interface ContactChannel {
             @if (generatedGmailUrl() && generatedMailtoUrl()) {
               <div
                 role="status"
-                class="flex flex-col justify-between gap-3 rounded-xl border border-brand/30 bg-brand/10 p-4 text-sm text-ink sm:flex-row sm:items-center"
+                class="flex flex-col justify-between gap-3 rounded-md border border-brand/30 bg-brand/10 p-4 text-sm text-ink sm:flex-row sm:items-center"
               >
                 <div class="flex items-center gap-2.5">
                   <app-icon name="check_circle" [size]="20" class="shrink-0 text-brand" />

@@ -4,12 +4,11 @@ import { LAYER_STYLES } from '../shared/layer';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { TechChips } from '../shared/ui/tech-chips';
-import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-experience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, TechChips, Reveal, Spotlight],
+  imports: [SectionHeader, TechChips, Reveal],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -36,11 +35,11 @@ import { Spotlight } from '../shared/ui/spotlight';
                 }
               </span>
 
-              <div appSpotlight class="card card-interactive space-y-6 p-6 sm:p-8">
+              <div class="card card-interactive space-y-6 p-6 sm:p-8">
                 <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                   <div class="space-y-1.5">
                     <div class="flex flex-wrap items-center gap-3">
-                      <h3 class="font-display text-xl font-bold text-ink sm:text-2xl">{{ item.role }}</h3>
+                      <h3 class="font-display text-xl font-normal text-ink sm:text-2xl">{{ item.role }}</h3>
                       @if (item.isCurrent) {
                         <span class="rounded-full bg-api/10 px-2.5 py-0.5 text-xs font-semibold text-api">Current</span>
                       }

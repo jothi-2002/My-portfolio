@@ -34,7 +34,7 @@ import { Icon } from '../shared/ui/icon';
                         {{ project.subtitle }}
                       </span>
                     </div>
-                    <h3 class="font-display text-4xl font-bold tracking-[-0.025em] text-ink sm:text-5xl">{{ project.title }}</h3>
+                    <h3 class="font-display text-5xl font-normal tracking-[-0.01em] text-ink sm:text-6xl">{{ project.title }}</h3>
                     <p class="text-base leading-relaxed text-soft sm:text-lg">{{ project.summary }}</p>
                   </header>
 
@@ -102,13 +102,13 @@ import { Icon } from '../shared/ui/icon';
             <!-- TODO: Replace placeholder card with upcoming project case studies when ready -->
             <article
               appReveal
-              class="flex flex-col items-start gap-4 rounded-2xl border border-dashed border-line bg-raised/40 p-6 sm:flex-row sm:items-center sm:p-8"
+              class="flex flex-col items-start gap-4 rounded-xl border border-dashed border-line bg-raised/40 p-6 sm:flex-row sm:items-center sm:p-8"
             >
-              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand">
                 <app-icon name="upcoming" />
               </span>
               <div class="space-y-1">
-                <h3 class="font-display text-lg font-semibold text-ink">{{ project.title }}</h3>
+                <h3 class="font-display text-2xl font-normal text-ink">{{ project.title }}</h3>
                 <p class="max-w-lg text-sm leading-relaxed text-soft">{{ project.summary }}</p>
               </div>
             </article>

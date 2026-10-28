@@ -12,7 +12,7 @@ import { Icon } from '../shared/ui/icon';
   template: `
     <header class="sticky top-0 z-50 pt-3 sm:pt-4">
       <div class="page-container">
-        <div class="relative rounded-2xl border border-line/80 bg-surface/75 shadow-card backdrop-blur-xl">
+        <div class="relative rounded-xl border border-line bg-surface shadow-card">
           <div class="flex h-14 items-center justify-between gap-4 pl-3 pr-2.5 sm:pl-4">
             <!-- Brand -->
             <a
@@ -22,11 +22,11 @@ import { Icon } from '../shared/ui/icon';
             >
               <span
                 aria-hidden="true"
-                class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-strong font-display text-xs font-extrabold text-on-brand transition-transform duration-300 group-hover:-rotate-6"
+                class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-strong font-sans text-xs font-bold text-on-brand transition-transform duration-300 group-hover:-rotate-6"
               >
                 JM
               </span>
-              <span class="font-display text-[0.95rem] font-bold tracking-tight text-ink">{{ brandName() }}</span>
+              <span class="sr-only font-display text-xl font-normal tracking-[-0.005em] text-ink min-[360px]:not-sr-only">{{ brandName() }}</span>
             </a>
 
             <!-- Desktop navigation -->
@@ -90,7 +90,7 @@ import { Icon } from '../shared/ui/icon';
             <nav
               id="mobile-nav-menu"
               aria-label="Mobile Navigation"
-              class="absolute inset-x-0 top-full mt-2 rounded-2xl border border-line bg-surface p-2 shadow-lift lg:hidden"
+              class="absolute inset-x-0 top-full mt-2 rounded-xl border border-line bg-surface p-2 shadow-lift lg:hidden"
             >
               <ul class="flex flex-col gap-0.5">
                 @for (item of navItems(); track item.id) {
@@ -99,7 +99,7 @@ import { Icon } from '../shared/ui/icon';
                       [href]="'#' + item.id"
                       (click)="navigate($event, item.id)"
                       [attr.aria-current]="isActive(item.id) ? 'location' : null"
-                      class="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium"
+                      class="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium"
                       [class]="isActive(item.id) ? 'bg-raised text-ink' : 'text-soft hover:bg-raised'"
                     >
                       <span>{{ item.label }}</span>
@@ -111,7 +111,7 @@ import { Icon } from '../shared/ui/icon';
                   <a
                     [href]="resumeUrl()"
                     download="Jothi_MuthuKamaraj_Resume.pdf"
-                    class="flex items-center justify-between rounded-xl bg-brand-strong px-3 py-2.5 text-sm font-semibold text-on-brand"
+                    class="flex items-center justify-between rounded-md bg-brand-strong px-3 py-2.5 text-sm font-semibold text-on-brand"
                   >
                     <span>Download Resume</span>
                     <app-icon name="download" [size]="18" />

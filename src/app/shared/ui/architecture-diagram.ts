@@ -17,12 +17,10 @@ import { Icon } from './icon';
         @for (node of nodes(); track node.id; let i = $index; let last = $last) {
           <li class="relative flex items-start gap-4">
             @if (!last) {
-              <span aria-hidden="true" class="absolute -bottom-5 left-5 top-10 w-px bg-line">
-                <span class="flow-line absolute inset-0" [style.animation-delay.ms]="i * 800"></span>
-              </span>
+              <span aria-hidden="true" class="absolute -bottom-5 left-5 top-10 w-px bg-line"></span>
             }
             <app-layer-badge [icon]="node.icon" [layer]="node.layer" />
-            <div class="min-w-0 flex-1 space-y-2 rounded-xl border bg-surface p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card {{ styles[node.layer].border }}">
+            <div class="min-w-0 flex-1 space-y-2 rounded-md border bg-surface p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card {{ styles[node.layer].border }}">
               <div>
                 <p class="text-sm font-semibold text-ink">{{ node.label }}</p>
                 <p class="text-xs leading-relaxed text-soft">{{ node.detail }}</p>
@@ -33,7 +31,7 @@ import { Icon } from './icon';
         }
       </ol>
 
-      <div class="flex items-start gap-3 rounded-xl border border-dashed border-line bg-raised/60 p-3.5">
+      <div class="flex items-start gap-3 rounded-md border border-dashed border-line bg-raised/60 p-3.5">
         <app-icon [name]="integration().icon" [size]="20" class="shrink-0 text-mute" />
         <div>
           <p class="text-sm font-semibold text-ink">{{ integration().label }}</p>

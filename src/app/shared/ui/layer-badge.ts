@@ -13,7 +13,7 @@ import { Icon } from './icon';
   template: `
     <span
       aria-hidden="true"
-      class="flex items-center justify-center rounded-xl {{ sizeClass() }} {{ style().softBg }} {{ style().text }}"
+      class="flex items-center justify-center rounded-md ring-1 ring-inset ring-current/25 {{ sizeClass() }} {{ style().softBg }} {{ style().text }}"
     >
       <app-icon [name]="icon()" [size]="iconPx()" />
     </span>

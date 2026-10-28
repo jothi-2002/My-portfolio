@@ -5,21 +5,13 @@ import { LayerBadge } from '../shared/ui/layer-badge';
 import { Reveal } from '../shared/ui/reveal';
 import { TechChips } from '../shared/ui/tech-chips';
 import { Icon } from '../shared/ui/icon';
-import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LayerBadge, TechChips, Reveal, Icon, Spotlight],
+  imports: [LayerBadge, TechChips, Reveal, Icon],
   template: `
-    <section id="hero" aria-labelledby="hero-heading" class="grain relative isolate overflow-hidden pb-24 pt-12 sm:pb-32 sm:pt-16 lg:pt-20">
-      <!-- Atmosphere: grid + soft colour glows -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-        <div class="bg-grid absolute inset-0 opacity-70"></div>
-        <div class="absolute -top-32 left-[8%] h-[26rem] w-[26rem] rounded-full bg-brand/20 blur-3xl"></div>
-        <div class="absolute right-[4%] top-24 h-[22rem] w-[22rem] rounded-full bg-api/15 blur-3xl"></div>
-      </div>
-
+    <section id="hero" aria-labelledby="hero-heading" class="relative overflow-hidden pb-24 pt-12 sm:pb-32 sm:pt-16 lg:pt-20">
       <div class="page-container">
         <div class="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
           <!-- Identity -->
@@ -27,7 +19,6 @@ import { Spotlight } from '../shared/ui/spotlight';
             <div appReveal class="flex flex-wrap items-center gap-3 text-sm font-medium text-soft">
               <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1.5 shadow-card">
                 <span class="relative flex h-2 w-2">
-                  <span class="pulse-ring absolute inset-0 rounded-full bg-brand"></span>
                   <span class="relative h-2 w-2 rounded-full bg-brand"></span>
                 </span>
                 <span class="text-ink">{{ hero().currentRole }}</span>
@@ -42,12 +33,12 @@ import { Spotlight } from '../shared/ui/spotlight';
               <p class="eyebrow">{{ hero().kicker }}</p>
               <h1
                 id="hero-heading"
-                class="font-display text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-ink text-balance sm:text-6xl lg:text-[5rem]"
+                class="font-display text-5xl font-normal leading-[0.95] tracking-[-0.015em] text-ink text-balance min-[360px]:text-[3.5rem] min-[400px]:text-[4.25rem] sm:text-8xl lg:text-[6.5rem] xl:text-[7.25rem]"
               >
                 <span class="block">{{ nameParts().first }}</span>&ngsp;<span class="block">{{ nameParts().last }}</span>
               </h1>
-              <p class="font-display text-2xl font-bold tracking-[-0.02em] sm:text-3xl">
-                <span class="text-gradient">{{ hero().title }}</span>
+              <p class="font-display text-3xl font-normal italic sm:text-4xl lg:text-5xl">
+                <span class="text-brand">{{ hero().title }}</span>
               </p>
             </div>
 
@@ -70,13 +61,13 @@ import { Spotlight } from '../shared/ui/spotlight';
               appReveal="280"
               [href]="'#' + hero().featured.targetId"
               (click)="goTo($event, hero().featured.targetId)"
-              appSpotlight class="card card-interactive group flex max-w-xl items-center justify-between gap-4 p-4"
+              class="card card-interactive group flex max-w-xl items-center justify-between gap-4 p-4"
             >
               <span class="flex min-w-0 items-center gap-3.5">
                 <app-layer-badge icon="verified" layer="core" />
                 <span class="min-w-0">
                   <span class="block text-xs font-medium text-mute">{{ hero().featured.label }}</span>
-                  <span class="block font-display text-base font-bold text-ink">{{ hero().featured.title }}</span>
+                  <span class="block font-display text-xl font-normal text-ink">{{ hero().featured.title }}</span>
                   <span class="block text-xs text-soft">{{ hero().featured.description }}</span>
                 </span>
               </span>
@@ -111,7 +102,7 @@ import { Spotlight } from '../shared/ui/spotlight';
             <div class="card relative space-y-6 p-6 sm:p-7">
               <div class="flex items-start justify-between gap-4">
                 <div>
-                  <h2 class="font-display text-base font-bold text-ink">Core Engineering Stack</h2>
+                  <h2 class="font-display text-xl font-normal text-ink">Core Engineering Stack</h2>
                   <p class="mt-0.5 text-xs text-mute">End-to-end delivery across database, API, and UI layers</p>
                 </div>
                 <app-icon name="layers" class="text-brand" />
@@ -121,9 +112,7 @@ import { Spotlight } from '../shared/ui/spotlight';
                 @for (card of hero().stackLayers; track card.id; let i = $index; let last = $last) {
                   <li class="relative flex items-start gap-4">
                     @if (!last) {
-                      <span aria-hidden="true" class="absolute -bottom-6 left-5 top-10 w-px bg-line">
-                        <span class="flow-line absolute inset-0" [style.animation-delay.ms]="i * 800"></span>
-                      </span>
+                      <span aria-hidden="true" class="absolute -bottom-6 left-5 top-10 w-px bg-line"></span>
                     }
                     <app-layer-badge [icon]="card.icon" [layer]="card.layer" />
                     <div class="min-w-0 space-y-2">

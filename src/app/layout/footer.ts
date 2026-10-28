@@ -12,7 +12,7 @@ import { Icon } from '../shared/ui/icon';
       <div class="page-container space-y-8">
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-start">
           <div class="max-w-sm space-y-2">
-            <p class="font-display text-lg font-bold text-ink">{{ name() }}</p>
+            <p class="font-display text-2xl font-normal text-ink">{{ name() }}</p>
             <p class="text-sm leading-relaxed text-soft">
               Full stack developer building dependable enterprise software with .NET, Angular and SQL.
             </p>

@@ -6,12 +6,11 @@ import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { filterSkillGroups } from '../utils/portfolio.utils';
 import { Icon } from '../shared/ui/icon';
-import { Spotlight } from '../shared/ui/spotlight';
 
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeader, LayerBadge, Reveal, Icon, Spotlight],
+  imports: [SectionHeader, LayerBadge, Reveal, Icon],
   template: `
     <div class="page-container space-y-10">
       <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -27,7 +26,7 @@ import { Spotlight } from '../shared/ui/spotlight';
           appReveal="120"
           role="group"
           aria-label="Filter skills by category"
-          class="flex flex-wrap items-center gap-1 rounded-xl border border-line bg-surface p-1.5 shadow-card lg:max-w-md"
+          class="flex flex-wrap items-center gap-1 rounded-md border border-line bg-surface p-1.5 shadow-card lg:max-w-md"
         >
           <button
             type="button"
@@ -55,12 +54,12 @@ import { Spotlight } from '../shared/ui/spotlight';
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         @for (group of filteredGroups(); track group.id; let i = $index) {
-          <article [appReveal]="i * 80" appSpotlight class="card card-interactive flex flex-col gap-5 p-6">
+          <article [appReveal]="i * 80" class="card card-interactive flex flex-col gap-5 p-6">
             <div class="flex items-center justify-between gap-3">
               <div class="flex min-w-0 items-center gap-3">
                 <app-layer-badge [icon]="group.icon" [layer]="group.layer" />
                 <div class="min-w-0">
-                  <h3 class="font-display text-base font-bold text-ink">{{ group.category }}</h3>
+                  <h3 class="font-display text-xl font-normal text-ink">{{ group.category }}</h3>
                   <p class="text-xs font-medium {{ layerStyles[group.layer].text }}">{{ layerStyles[group.layer].label }}</p>
                 </div>
               </div>

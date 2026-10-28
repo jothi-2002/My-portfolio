@@ -30,7 +30,7 @@ const COUNT_UP_DURATION_MS = 1100;
           <app-section-header index="01" eyebrow="Overview" [title]="about().heading" headingId="about-heading" />
           <div appReveal="100" class="space-y-5 text-base leading-relaxed text-soft sm:text-lg">
             @for (paragraph of about().paragraphs; track paragraph; let first = $first) {
-              <p [class]="first ? 'font-display text-2xl font-medium leading-snug tracking-tight text-ink sm:text-[1.7rem]' : ''">
+              <p [class]="first ? 'font-display text-3xl font-normal leading-snug tracking-[-0.005em] text-ink sm:text-[2.15rem]' : ''">
                 {{ paragraph }}
               </p>
             }
@@ -42,8 +42,8 @@ const COUNT_UP_DURATION_MS = 1100;
           @for (stat of about().stats; track stat.id; let i = $index) {
             <div [appReveal]="i * 120" class="flex flex-col-reverse border-t border-line py-6 lg:py-8">
               <dt class="mt-2 text-sm font-medium text-soft">{{ stat.label }}</dt>
-              <dd class="font-display text-6xl font-extrabold tabular-nums tracking-[-0.03em] sm:text-7xl">
-                <span class="text-gradient">{{ displayValue(stat.id, stat.numericValue) }}{{ stat.suffix }}</span>
+              <dd class="font-display text-7xl font-normal lining-nums tabular-nums tracking-[-0.01em] sm:text-8xl">
+                <span class="text-brand">{{ displayValue(stat.id, stat.numericValue) }}{{ stat.suffix }}</span>
               </dd>
             </div>
           }
@@ -52,7 +52,7 @@ const COUNT_UP_DURATION_MS = 1100;
 
       <!-- Career story: a hairline timeline -->
       <div class="space-y-10">
-        <h3 appReveal class="font-display text-xl font-bold tracking-tight text-ink">{{ about().chaptersHeading }}</h3>
+        <h3 appReveal class="font-display text-2xl font-normal tracking-[-0.005em] text-ink">{{ about().chaptersHeading }}</h3>
 
         <ol class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
           @for (chapter of about().chapters; track chapter.id; let i = $index) {
@@ -62,7 +62,6 @@ const COUNT_UP_DURATION_MS = 1100;
                 class="absolute -top-[6px] left-0 flex h-3 w-3 items-center justify-center rounded-full border-2 bg-canvas transition-colors duration-300 {{ chapter.isCurrent ? 'border-brand' : 'border-mute group-hover:border-brand' }}"
               >
                 @if (chapter.isCurrent) {
-                  <span class="pulse-ring absolute inset-0 rounded-full bg-brand"></span>
                   <span class="h-1 w-1 rounded-full bg-brand"></span>
                 }
               </span>
@@ -74,7 +73,7 @@ const COUNT_UP_DURATION_MS = 1100;
                   class="transition-colors duration-300 {{ chapter.isCurrent ? 'text-brand' : 'text-mute group-hover:text-brand' }}"
                 />
               </div>
-              <h4 class="font-display text-lg font-bold leading-snug tracking-tight text-ink">{{ chapter.title }}</h4>
+              <h4 class="font-display text-2xl font-normal leading-snug tracking-[-0.005em] text-ink">{{ chapter.title }}</h4>
               <p class="mt-2 text-sm leading-relaxed text-soft">{{ chapter.body }}</p>
             </li>
           }
