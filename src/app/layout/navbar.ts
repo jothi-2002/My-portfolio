@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { SectionNavService } from '../core/section-nav';
 import { ThemeService } from '../core/theme';
 import { NavItem } from '../data/portfolio.models';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-navbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule],
+  host: { '(document:keydown.escape)': 'closeMenu()' },
+  imports: [Icon],
   template: `
     <header class="sticky top-0 z-50 w-full border-b border-line/80 bg-canvas/80 backdrop-blur-xl">
       <div class="page-container flex h-16 items-center justify-between gap-6">
@@ -53,9 +54,7 @@ import { NavItem } from '../data/portfolio.models';
             [attr.aria-label]="themeService.isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
             class="btn-small !px-3 !py-2"
           >
-            <mat-icon class="!h-4 !w-4 !text-base leading-none">
-              {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
-            </mat-icon>
+            <app-icon [name]="themeService.isDark() ? 'light_mode' : 'dark_mode'" [size]="16" />
             <span class="hidden sm:inline">{{ themeService.isDark() ? 'Light' : 'Dark' }}</span>
           </button>
 
@@ -67,7 +66,7 @@ import { NavItem } from '../data/portfolio.models';
             [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
             class="btn-small !p-2 lg:hidden"
           >
-            <mat-icon class="!h-5 !w-5 !text-xl leading-none">{{ mobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+            <app-icon [name]="mobileMenuOpen() ? 'close' : 'menu'" [size]="20" />
           </button>
         </div>
       </div>
@@ -86,7 +85,7 @@ import { NavItem } from '../data/portfolio.models';
                   [class]="isActive(item.id) ? 'bg-brand/10 text-brand' : 'text-soft hover:bg-raised'"
                 >
                   <span>{{ item.label }}</span>
-                  <mat-icon class="!h-4 !w-4 !text-base opacity-60">arrow_forward</mat-icon>
+                  <app-icon name="arrow_forward" [size]="16" class="opacity-60" />
                 </a>
               </li>
             }
@@ -107,6 +106,10 @@ export class Navbar {
   readonly navItems = input.required<readonly NavItem[]>();
 
   protected readonly mobileMenuOpen = signal(false);
+
+  protected closeMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
 
   protected isActive(id: string): boolean {
     return this.sectionNav.activeSection() === id;

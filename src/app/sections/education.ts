@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { EducationItem } from '../data/portfolio.models';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-education',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, SectionHeader, Reveal],
+  imports: [SectionHeader, Reveal, Icon],
   template: `
     <div class="page-container space-y-10">
       <app-section-header index="06" eyebrow="Academic Foundation" title="Education" headingId="education-heading" />
@@ -20,7 +20,7 @@ import { SectionHeader } from '../shared/ui/section-header';
           >
             <div class="flex items-start gap-4">
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">
-                <mat-icon class="!h-6 !w-6 !text-2xl leading-none">school</mat-icon>
+                <app-icon name="school" />
               </span>
               <div class="space-y-1.5">
                 <h3 class="font-display text-lg font-bold text-ink sm:text-xl">{{ edu.degree }}, {{ edu.field }}</h3>

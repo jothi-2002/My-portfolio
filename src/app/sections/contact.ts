@@ -10,19 +10,20 @@ import {
   signal,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { ContactData } from '../data/portfolio.models';
+import { IconName } from '../shared/icons';
 import { FormField } from '../shared/ui/form-field';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { buildGmailComposeUrl, buildMailtoUrl, validateContactForm } from '../utils/portfolio.utils';
+import { Icon } from '../shared/ui/icon';
 
 type CopyableField = 'email' | 'phone';
 
 interface ContactChannel {
   readonly id: string;
   readonly label: string;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly text: string;
   readonly href?: string;
   readonly external?: boolean;
@@ -34,7 +35,7 @@ interface ContactChannel {
 @Component({
   selector: 'app-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatIconModule, SectionHeader, FormField, Reveal],
+  imports: [ReactiveFormsModule, SectionHeader, FormField, Reveal, Icon],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -52,7 +53,7 @@ interface ContactChannel {
             <li [appReveal]="i * 70" class="card flex items-center justify-between gap-4 p-4 sm:p-5">
               <div class="flex min-w-0 items-center gap-3.5">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">{{ channel.icon }}</mat-icon>
+                  <app-icon [name]="channel.icon" [size]="20" />
                 </span>
                 <div class="min-w-0">
                   <div class="text-xs font-medium text-mute">{{ channel.label }}</div>
@@ -79,9 +80,7 @@ interface ContactChannel {
                   [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
                   class="btn-small"
                 >
-                  <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">
-                    {{ copiedField() === channel.copyField ? 'check' : 'content_copy' }}
-                  </mat-icon>
+                  <app-icon [name]="copiedField() === channel.copyField ? 'check' : 'content_copy'" [size]="14" />
                   <span>{{ copiedField() === channel.copyField ? 'Copied' : 'Copy' }}</span>
                 </button>
               } @else if (channel.external && channel.href) {
@@ -89,11 +88,11 @@ interface ContactChannel {
                   [href]="channel.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  [attr.aria-label]="'Open ' + channel.label + ' profile in new tab'"
+                  [attr.aria-label]="'Visit ' + channel.label + ' profile (opens in new tab)'"
                   class="btn-small"
                 >
                   <span>Visit</span>
-                  <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">open_in_new</mat-icon>
+                  <app-icon name="open_in_new" [size]="14" />
                 </a>
               }
             </li>
@@ -162,17 +161,17 @@ interface ContactChannel {
             <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
               <div class="flex flex-wrap items-center gap-3">
                 <button type="submit" class="btn-primary">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">mail</mat-icon>
+                  <app-icon name="mail" [size]="20" />
                   <span>Open in Gmail</span>
                 </button>
                 <button type="button" (click)="onSubmitMailto()" class="btn-secondary">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none text-brand">outgoing_mail</mat-icon>
+                  <app-icon name="outgoing_mail" [size]="20" class="text-brand" />
                   <span>Default Mail App</span>
                 </button>
               </div>
 
               <button type="button" (click)="onReset()" class="btn-small">
-                <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">restart_alt</mat-icon>
+                <app-icon name="restart_alt" [size]="14" />
                 <span>Reset</span>
               </button>
             </div>
@@ -183,7 +182,7 @@ interface ContactChannel {
                 class="flex flex-col justify-between gap-3 rounded-xl border border-brand/30 bg-brand/10 p-4 text-sm text-ink sm:flex-row sm:items-center"
               >
                 <div class="flex items-center gap-2.5">
-                  <mat-icon class="!h-5 !w-5 shrink-0 !text-xl leading-none text-brand">check_circle</mat-icon>
+                  <app-icon name="check_circle" [size]="20" class="shrink-0 text-brand" />
                   <span>Message prepared for <strong>{{ contact().email }}</strong>:</span>
                 </div>
                 <div class="flex shrink-0 flex-wrap items-center gap-4">
@@ -194,11 +193,11 @@ interface ContactChannel {
                     class="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
                   >
                     <span>Open Gmail Tab</span>
-                    <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">open_in_new</mat-icon>
+                    <app-icon name="open_in_new" [size]="14" />
                   </a>
                   <a [href]="generatedMailtoUrl()" class="inline-flex items-center gap-1 font-medium text-soft hover:text-brand hover:underline">
                     <span>Mailto Link</span>
-                    <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">launch</mat-icon>
+                    <app-icon name="launch" [size]="14" />
                   </a>
                 </div>
               </div>

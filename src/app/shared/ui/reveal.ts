@@ -1,4 +1,5 @@
 import { DestroyRef, Directive, ElementRef, afterNextRender, inject, input, numberAttribute } from '@angular/core';
+import { prefersReducedMotion } from '../../utils/motion';
 
 /**
  * Fades and lifts an element in the first time it scrolls into view.
@@ -16,7 +17,7 @@ export class Reveal {
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduceMotion = prefersReducedMotion();
       const alreadyVisible = el.getBoundingClientRect().top < window.innerHeight * 0.9;
       if (reduceMotion || alreadyVisible || typeof IntersectionObserver === 'undefined') {
         return;

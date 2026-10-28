@@ -1,5 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, OnDestroy, PLATFORM_ID, inject, signal } from '@angular/core';
+import { prefersReducedMotion } from '../utils/motion';
 
 /** Tracks which page section is in view (scroll-spy) and scrolls to sections on demand. */
 @Injectable({
@@ -53,8 +54,7 @@ export class SectionNavService implements OnDestroy {
       return;
     }
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   }
 
   ngOnDestroy(): void {

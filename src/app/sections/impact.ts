@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { ImpactItem } from '../data/portfolio.models';
 import { LAYER_STYLES } from '../shared/layer';
 import { LayerBadge } from '../shared/ui/layer-badge';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { TechChips } from '../shared/ui/tech-chips';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-impact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, SectionHeader, LayerBadge, TechChips, Reveal],
+  imports: [SectionHeader, LayerBadge, TechChips, Reveal, Icon],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -46,7 +46,7 @@ import { TechChips } from '../shared/ui/tech-chips';
               <div class="grid grid-cols-[5.5rem_1fr] gap-3 rounded-xl p-3 -mx-3 {{ layerStyles[item.layer].softBg }}">
                 <dt class="font-mono text-xs font-medium uppercase tracking-wider {{ layerStyles[item.layer].text }}">Outcome</dt>
                 <dd class="flex items-start gap-2 font-medium text-ink">
-                  <mat-icon class="!h-5 !w-5 shrink-0 !text-xl leading-none {{ layerStyles[item.layer].text }}">check_circle</mat-icon>
+                  <app-icon name="check_circle" [size]="20" class="shrink-0 {{ layerStyles[item.layer].text }}" />
                   <span>{{ item.outcome }}</span>
                 </dd>
               </div>

@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { SkillGroup } from '../data/portfolio.models';
 import { LAYER_STYLES } from '../shared/layer';
 import { LayerBadge } from '../shared/ui/layer-badge';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { filterSkillGroups } from '../utils/portfolio.utils';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, SectionHeader, LayerBadge, Reveal],
+  imports: [SectionHeader, LayerBadge, Reveal, Icon],
   template: `
     <div class="page-container space-y-10">
-      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <app-section-header
           index="02"
           eyebrow="Technical Capabilities"
@@ -26,7 +26,7 @@ import { filterSkillGroups } from '../utils/portfolio.utils';
           appReveal="120"
           role="group"
           aria-label="Filter skills by category"
-          class="flex flex-wrap items-center gap-1 rounded-xl border border-line bg-surface p-1.5 shadow-card md:max-w-md"
+          class="flex flex-wrap items-center gap-1 rounded-xl border border-line bg-surface p-1.5 shadow-card lg:max-w-md"
         >
           <button
             type="button"
@@ -34,7 +34,7 @@ import { filterSkillGroups } from '../utils/portfolio.utils';
             [attr.aria-pressed]="selectedCategory() === 'all'"
             [class]="pillClass(selectedCategory() === 'all')"
           >
-            <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">apps</mat-icon>
+            <app-icon name="apps" [size]="14" />
             <span>All ({{ skillGroups().length }})</span>
           </button>
 
@@ -45,7 +45,7 @@ import { filterSkillGroups } from '../utils/portfolio.utils';
               [attr.aria-pressed]="selectedCategory() === group.id"
               [class]="pillClass(selectedCategory() === group.id)"
             >
-              <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">{{ group.icon }}</mat-icon>
+              <app-icon [name]="group.icon" [size]="14" />
               <span>{{ group.category }}</span>
             </button>
           }

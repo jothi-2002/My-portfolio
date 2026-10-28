@@ -7,6 +7,8 @@
  * Which part of the stack a piece of content belongs to.
  * Drives the colour coding shared by the hero, skills, experience and case study.
  */
+import type { IconName } from '../shared/icons';
+
 export type StackLayer = 'core' | 'ui' | 'api' | 'data' | 'security' | 'ops';
 
 export interface NavItem {
@@ -18,17 +20,24 @@ export interface SocialLink {
   readonly id: 'linkedin' | 'email' | 'github' | 'gitlab';
   readonly label: string;
   readonly href: string;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly external: boolean;
 }
 
 export interface StackLayerCard {
   readonly id: string;
   readonly layer: StackLayer;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly title: string;
   readonly description: string;
   readonly technologies: readonly string[];
+}
+
+export interface FeaturedLink {
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+  readonly targetId: string;
 }
 
 export interface HeroData {
@@ -40,6 +49,7 @@ export interface HeroData {
   readonly resumeUrl: string;
   readonly contactSectionId: string;
   readonly currentRole: string;
+  readonly featured: FeaturedLink;
   readonly socialLinks: readonly SocialLink[];
   readonly stackLayers: readonly StackLayerCard[];
 }
@@ -57,7 +67,7 @@ export interface StoryChapter {
   readonly period: string;
   readonly title: string;
   readonly body: string;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly isCurrent: boolean;
 }
 
@@ -72,7 +82,7 @@ export interface AboutData {
 export interface SkillGroup {
   readonly id: string;
   readonly category: string;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly layer: StackLayer;
   readonly skills: readonly string[];
 }
@@ -99,7 +109,7 @@ export interface ExperienceItem {
 export interface ImpactItem {
   readonly id: string;
   readonly layer: StackLayer;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly title: string;
   readonly problem: string;
   readonly approach: string;
@@ -110,7 +120,7 @@ export interface ImpactItem {
 export interface ArchitectureNode {
   readonly id: string;
   readonly layer: StackLayer;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly label: string;
   readonly detail: string;
   readonly technologies: readonly string[];
@@ -119,14 +129,14 @@ export interface ArchitectureNode {
 export interface ArchitectureIntegration {
   readonly label: string;
   readonly detail: string;
-  readonly icon: string;
+  readonly icon: IconName;
 }
 
 export interface CaseStudy {
   readonly challenge: string;
   readonly role: string;
-  readonly approach: readonly string[];
-  readonly outcomes: readonly string[];
+  readonly ownership: readonly string[];
+  readonly delivered: readonly string[];
   readonly architecture: readonly ArchitectureNode[];
   readonly integration: ArchitectureIntegration;
 }

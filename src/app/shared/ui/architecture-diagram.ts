@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { ArchitectureIntegration, ArchitectureNode } from '../../data/portfolio.models';
 import { LAYER_STYLES } from '../layer';
 import { LayerBadge } from './layer-badge';
 import { TechChips } from './tech-chips';
+import { Icon } from './icon';
 
 /** Vertical UI -> API -> data flow with a side integration, drawn from plain data. */
 @Component({
   selector: 'app-architecture-diagram',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
-  imports: [MatIconModule, LayerBadge, TechChips],
+  imports: [LayerBadge, TechChips, Icon],
   template: `
     <figure class="space-y-4" [attr.aria-label]="caption()">
       <ol class="space-y-5">
@@ -34,7 +34,7 @@ import { TechChips } from './tech-chips';
       </ol>
 
       <div class="flex items-start gap-3 rounded-xl border border-dashed border-line bg-raised/60 p-3.5">
-        <mat-icon class="!h-5 !w-5 shrink-0 !text-xl leading-none text-mute">{{ integration().icon }}</mat-icon>
+        <app-icon [name]="integration().icon" [size]="20" class="shrink-0 text-mute" />
         <div>
           <p class="text-sm font-semibold text-ink">{{ integration().label }}</p>
           <p class="text-xs leading-relaxed text-soft">{{ integration().detail }}</p>

@@ -9,18 +9,19 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { AboutData } from '../data/portfolio.models';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { interpolateCountUp } from '../utils/portfolio.utils';
+import { Icon } from '../shared/ui/icon';
+import { prefersReducedMotion } from '../utils/motion';
 
 const COUNT_UP_DURATION_MS = 1100;
 
 @Component({
   selector: 'app-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, SectionHeader, Reveal],
+  imports: [SectionHeader, Reveal, Icon],
   template: `
     <div class="page-container space-y-16">
       <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
@@ -59,7 +60,7 @@ const COUNT_UP_DURATION_MS = 1100;
                   class="flex h-10 w-10 items-center justify-center rounded-xl {{ chapter.isCurrent ? 'bg-brand-strong text-on-brand' : 'bg-brand/10 text-brand' }}"
                   aria-hidden="true"
                 >
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">{{ chapter.icon }}</mat-icon>
+                  <app-icon [name]="chapter.icon" [size]="20" />
                 </span>
                 <span class="font-mono text-xs font-medium text-brand">{{ chapter.period }}</span>
               </div>
@@ -86,7 +87,7 @@ export class About {
 
     afterNextRender(() => {
       const el = this.statsContainer()?.nativeElement;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduceMotion = prefersReducedMotion();
       if (!el || reduceMotion || typeof IntersectionObserver === 'undefined') {
         return;
       }

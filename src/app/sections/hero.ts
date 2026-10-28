@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { SectionNavService } from '../core/section-nav';
 import { HeroData } from '../data/portfolio.models';
 import { LayerBadge } from '../shared/ui/layer-badge';
 import { Reveal } from '../shared/ui/reveal';
 import { TechChips } from '../shared/ui/tech-chips';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, LayerBadge, TechChips, Reveal],
+  imports: [LayerBadge, TechChips, Reveal, Icon],
   template: `
     <section id="hero" aria-labelledby="hero-heading" class="relative isolate overflow-hidden pb-20 pt-14 sm:pb-28 sm:pt-20 lg:pt-24">
       <!-- Atmosphere: grid + soft colour glows -->
@@ -32,7 +32,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                 <span class="text-ink">{{ hero().currentRole }}</span>
               </span>
               <span class="inline-flex items-center gap-1">
-                <mat-icon class="!h-4 !w-4 !text-base leading-none text-brand">place</mat-icon>
+                <app-icon name="place" [size]="16" class="text-brand" />
                 {{ hero().location }}
               </span>
             </div>
@@ -43,7 +43,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                 id="hero-heading"
                 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl lg:text-7xl"
               >
-                {{ hero().name }}
+                <span class="block">{{ nameParts().first }}</span>&ngsp;<span class="block">{{ nameParts().last }}</span>
               </h1>
               <p class="font-display text-2xl font-bold tracking-tight sm:text-3xl">
                 <span class="text-gradient">{{ hero().title }}</span>
@@ -56,14 +56,34 @@ import { TechChips } from '../shared/ui/tech-chips';
 
             <div appReveal="240" class="flex flex-wrap items-center gap-3">
               <a [href]="hero().resumeUrl" download="Jothi_MuthuKamaraj_Resume.pdf" target="_blank" rel="noopener" class="btn-primary">
-                <mat-icon class="!h-5 !w-5 !text-xl leading-none">download</mat-icon>
+                <app-icon name="download" [size]="20" />
                 <span>Download Resume</span>
               </a>
               <a [href]="'#' + hero().contactSectionId" (click)="goTo($event, hero().contactSectionId)" class="btn-secondary">
-                <mat-icon class="!h-5 !w-5 !text-xl leading-none text-brand">send</mat-icon>
+                <app-icon name="send" [size]="20" class="text-brand" />
                 <span>Contact Me</span>
               </a>
             </div>
+
+            <a
+              appReveal="280"
+              [href]="'#' + hero().featured.targetId"
+              (click)="goTo($event, hero().featured.targetId)"
+              class="card card-interactive group flex max-w-xl items-center justify-between gap-4 p-4"
+            >
+              <span class="flex min-w-0 items-center gap-3.5">
+                <app-layer-badge icon="verified" layer="core" />
+                <span class="min-w-0">
+                  <span class="block text-xs font-medium text-mute">{{ hero().featured.label }}</span>
+                  <span class="block font-display text-base font-bold text-ink">{{ hero().featured.title }}</span>
+                  <span class="block text-xs text-soft">{{ hero().featured.description }}</span>
+                </span>
+              </span>
+              <span class="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-brand">
+                <span class="hidden sm:inline">Read the case study</span>
+                <app-icon name="arrow_forward" [size]="16" class="transition-transform duration-200 group-hover:translate-x-0.5" />
+              </span>
+            </a>
 
             <div appReveal="320" class="flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-line pt-6">
               <span class="text-xs font-medium text-mute">Connect</span>
@@ -75,10 +95,10 @@ import { TechChips } from '../shared/ui/tech-chips';
                   [attr.aria-label]="link.label"
                   class="btn-small"
                 >
-                  <mat-icon class="!h-4 !w-4 !text-base leading-none">{{ link.icon }}</mat-icon>
+                  <app-icon [name]="link.icon" [size]="16" />
                   <span>{{ link.label }}</span>
                   @if (link.external) {
-                    <mat-icon class="!h-3.5 !w-3.5 !text-xs leading-none opacity-60">open_in_new</mat-icon>
+                    <app-icon name="open_in_new" [size]="14" class="opacity-60" />
                   }
                 </a>
               }
@@ -93,7 +113,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                   <h2 class="font-display text-base font-bold text-ink">Core Engineering Stack</h2>
                   <p class="mt-0.5 text-xs text-mute">End-to-end delivery across database, API, and UI layers</p>
                 </div>
-                <mat-icon class="text-brand">layers</mat-icon>
+                <app-icon name="layers" class="text-brand" />
               </div>
 
               <ol class="relative space-y-6">
@@ -118,7 +138,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                 <span>Currently: {{ hero().currentRole }}</span>
                 <a href="#experience" (click)="goTo($event, 'experience')" class="inline-flex shrink-0 items-center gap-1 font-semibold text-brand hover:underline">
                   <span>View Timeline</span>
-                  <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">arrow_downward</mat-icon>
+                  <app-icon name="arrow_downward" [size]="14" />
                 </a>
               </div>
             </div>
@@ -132,6 +152,12 @@ export class Hero {
   private readonly sectionNav = inject(SectionNavService);
 
   readonly hero = input.required<HeroData>();
+
+  /** The name always breaks between first name and surname, so the font swap can't re-wrap the headline. */
+  protected readonly nameParts = computed(() => {
+    const [first = '', ...rest] = this.hero().name.split(' ');
+    return { first, last: rest.join(' ') };
+  });
 
   protected goTo(event: Event, sectionId: string): void {
     event.preventDefault();

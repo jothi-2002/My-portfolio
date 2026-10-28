@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { Icon } from './icon';
 
 /**
  * Label + projected control + validation message.
@@ -9,14 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-form-field',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
-  imports: [MatIconModule],
+  imports: [Icon],
   template: `
     <div class="space-y-1.5">
       <label [for]="controlId()" class="block text-xs font-semibold text-ink">{{ label() }}</label>
       <ng-content />
       @if (error()) {
         <p [id]="controlId() + '-error'" role="alert" class="flex items-center gap-1 text-xs font-medium text-danger">
-          <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">error_outline</mat-icon>
+          <app-icon name="error_outline" [size]="14" />
           <span>{{ error() }}</span>
         </p>
       }

@@ -17,27 +17,39 @@
     </section>
 
     <section id="skills" aria-labelledby="skills-heading" class="section border-t border-line bg-surface/40">
-      <app-skills [skillGroups]="data().skillGroups" />
+      @defer (hydrate on viewport) {
+        <app-skills [skillGroups]="data().skillGroups" />
+      }
     </section>
 
     <section id="experience" aria-labelledby="experience-heading" class="section border-t border-line">
-      <app-experience [experiences]="data().experiences" />
+      @defer (hydrate on viewport) {
+        <app-experience [experiences]="data().experiences" />
+      }
     </section>
 
     <section id="impact" aria-labelledby="impact-heading" class="section border-t border-line bg-surface/40">
-      <app-impact [items]="data().impact" />
+      @defer (hydrate on viewport) {
+        <app-impact [items]="data().impact" />
+      }
     </section>
 
     <section id="projects" aria-labelledby="projects-heading" class="section border-t border-line">
-      <app-projects [projects]="data().projects" />
+      @defer (hydrate on viewport) {
+        <app-projects [projects]="data().projects" />
+      }
     </section>
 
     <section id="education" aria-labelledby="education-heading" class="section border-t border-line bg-surface/40">
-      <app-education [education]="data().education" />
+      @defer (hydrate on viewport) {
+        <app-education [education]="data().education" />
+      }
     </section>
 
     <section id="contact" aria-labelledby="contact-heading" class="section border-t border-line">
-      <app-contact [contact]="data().contact" />
+      @defer (hydrate on viewport) {
+        <app-contact [contact]="data().contact" />
+      }
     </section>
   </main>
 

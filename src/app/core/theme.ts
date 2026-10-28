@@ -1,5 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { prefersReducedMotion } from '../utils/motion';
 
 export type ThemeMode = 'dark' | 'light';
 
@@ -30,7 +31,7 @@ export class ThemeService {
       startViewTransition?: (callback: () => void) => unknown;
     };
 
-    if (this.isBrowser && !this.prefersReducedMotion() && doc.startViewTransition) {
+    if (this.isBrowser && !prefersReducedMotion() && doc.startViewTransition) {
       doc.startViewTransition(() => this.setTheme(next));
     } else {
       this.setTheme(next);
@@ -64,9 +65,5 @@ export class ThemeService {
 
   private applyToDom(mode: ThemeMode): void {
     this.document.documentElement.classList.toggle('dark', mode === 'dark');
-  }
-
-  private prefersReducedMotion(): boolean {
-    return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 }
