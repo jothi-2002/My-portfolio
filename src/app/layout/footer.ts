@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { SectionNavService } from '../core/section-nav';
 import { NavItem, SocialLink } from '../data/portfolio.models';
+import { Icon } from '../shared/ui/icon';
 
 @Component({
   selector: 'app-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule],
+  imports: [Icon],
   template: `
     <footer class="border-t border-line bg-surface py-12">
       <div class="page-container space-y-8">
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-start">
           <div class="max-w-sm space-y-2">
-            <p class="font-display text-lg font-bold text-ink">{{ name() }}</p>
+            <p class="font-display text-2xl font-normal text-ink">{{ name() }}</p>
             <p class="text-sm leading-relaxed text-soft">
               Full stack developer building dependable enterprise software with .NET, Angular and SQL.
             </p>
@@ -42,7 +42,7 @@ import { NavItem, SocialLink } from '../data/portfolio.models';
                 [attr.rel]="link.external ? 'noopener noreferrer' : null"
                 class="inline-flex items-center gap-1.5 transition-colors hover:text-brand"
               >
-                <mat-icon class="!h-4 !w-4 !text-base leading-none">{{ link.icon }}</mat-icon>
+                <app-icon [name]="link.icon" [size]="16" />
                 <span>{{ link.label }}</span>
               </a>
             }
@@ -51,7 +51,7 @@ import { NavItem, SocialLink } from '../data/portfolio.models';
               (click)="navigate($event, 'hero')"
               class="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
             >
-              <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">arrow_upward</mat-icon>
+              <app-icon name="arrow_upward" [size]="14" />
               <span>Top</span>
             </a>
           </div>

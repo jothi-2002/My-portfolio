@@ -11,54 +11,56 @@
 :root {
   color-scheme: light;
 
-  --c-canvas: #f6f7fb;
-  --c-surface: #ffffff;
-  --c-raised: #eef0f8;
-  --c-line: #dfe3ee;
-  --c-ink: #0e1528;
-  --c-soft: #46526b;
-  --c-mute: #66728b;
+  /* Matte stone neutrals with one clay accent. Flat colour only: no gradients, glows or gloss. */
+  --c-canvas: #eeebe4;
+  --c-surface: #f7f5f0;
+  --c-raised: #e4e0d6;
+  --c-line: #d2cdc2;
+  --c-ink: #1e1f1d;
+  --c-soft: #494843;
+  --c-mute: #5a564f;
 
-  --c-brand: #4453d9;
-  --c-brand-strong: #4453d9;
-  --c-on-brand: #ffffff;
+  --c-brand: #8e4429;
+  --c-brand-strong: #1e1f1d;
+  --c-on-brand: #eeebe4;
 
-  /* Stack layers: used consistently for skills, highlights and diagrams */
-  --c-ui: #4453d9;
-  --c-api: #0f766e;
-  --c-data: #b45309;
-  --c-security: #7e3fc4;
-  --c-ops: #0369a1;
-  --c-danger: #c2272d;
+  /* Muted, dusty tones reserved for the stack layers (skills, highlights, diagrams) */
+  --c-ui: #3f537a; /* slate blue */
+  --c-api: #38634e; /* sage */
+  --c-data: #735619; /* ochre */
+  --c-security: #66507c; /* mauve */
+  --c-ops: #86404d; /* dusty rose */
+  --c-danger: #94362e;
 
-  --s-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
-  --s-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(68 83 217 / 0.28);
+  --s-card: 0 1px 2px rgb(30 31 29 / 0.08);
+  --s-lift: 0 2px 6px rgb(30 31 29 / 0.12);
 }
 
 .dark {
   color-scheme: dark;
 
-  --c-canvas: #070b14;
-  --c-surface: #0d1321;
-  --c-raised: #141c2f;
-  --c-line: #1d2740;
-  --c-ink: #eaeef8;
-  --c-soft: #aab5cc;
-  --c-mute: #7d8aa5;
+  /* Matte charcoal with a clay accent */
+  --c-canvas: #1a1b1a;
+  --c-surface: #212220;
+  --c-raised: #292a28;
+  --c-line: #383a37;
+  --c-ink: #e8e6e1;
+  --c-soft: #b8b6af;
+  --c-mute: #9c9a93;
 
-  --c-brand: #8b98ff;
-  --c-brand-strong: #5666f0;
-  --c-on-brand: #ffffff;
+  --c-brand: #d9967a;
+  --c-brand-strong: #d9967a;
+  --c-on-brand: #1a1b1a;
 
-  --c-ui: #8b98ff;
-  --c-api: #2dd4bf;
-  --c-data: #fbbf24;
-  --c-security: #c4a1ff;
-  --c-ops: #5cc4f5;
-  --c-danger: #ff7b82;
+  --c-ui: #94a9c9; /* slate blue */
+  --c-api: #93b9a1; /* sage */
+  --c-data: #d0b073; /* ochre */
+  --c-security: #bca3ca; /* mauve */
+  --c-ops: #d393a0; /* dusty rose */
+  --c-danger: #e0948d;
 
-  --s-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
-  --s-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 44px -18px rgb(86 102 240 / 0.45);
+  --s-card: 0 1px 2px rgb(0 0 0 / 0.35);
+  --s-lift: 0 2px 6px rgb(0 0 0 / 0.45);
 }
 
 @theme inline {
@@ -79,9 +81,9 @@
   --color-ops: var(--c-ops);
   --color-danger: var(--c-danger);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --shadow-card: var(--s-card);
   --shadow-lift: var(--s-lift);
@@ -102,6 +104,11 @@
     font-feature-settings: 'cv11', 'ss01';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  .font-display {
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
   }
 
   ::selection {
@@ -139,19 +146,19 @@
   }
 
   .section {
-    @apply scroll-mt-16 py-20 sm:py-28;
+    @apply relative scroll-mt-20 py-24 sm:py-32;
   }
 
   .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand;
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-brand;
   }
 
   .section-title {
-    @apply font-display text-3xl font-bold tracking-tight text-ink text-balance sm:text-4xl;
+    @apply font-display text-5xl font-normal leading-[1.02] tracking-[-0.015em] text-ink text-balance sm:text-6xl;
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-surface shadow-card;
+    @apply rounded-lg border border-line bg-surface shadow-card;
     transition:
       border-color 200ms,
       box-shadow 200ms,
@@ -159,7 +166,7 @@
   }
 
   .card-interactive:hover {
-    border-color: color-mix(in srgb, var(--c-brand) 45%, var(--c-line));
+    border-color: var(--c-brand);
     box-shadow: var(--s-lift);
     transform: translateY(-2px);
   }
@@ -167,43 +174,41 @@
   .btn,
   .btn-primary,
   .btn-secondary {
-    @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200;
+    @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-md px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-brand-strong text-on-brand shadow-lift hover:brightness-110 active:scale-[0.98];
+    @apply border border-transparent bg-brand-strong text-on-brand hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0 active:scale-[0.98];
   }
 
   .btn-secondary {
-    @apply border border-line bg-surface text-ink hover:border-brand;
+    @apply border border-line bg-surface text-ink hover:-translate-y-0.5 hover:border-brand active:translate-y-0;
   }
 
   .btn-small {
-    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg border border-line bg-raised px-2.5 py-1.5 text-xs font-medium text-soft transition-colors hover:border-brand hover:text-brand;
+    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-raised px-2.5 py-1.5 text-xs font-medium text-soft transition-colors hover:border-brand hover:text-brand;
   }
 
   .chip {
-    @apply inline-flex items-center rounded-lg border border-line bg-raised px-2.5 py-1 font-mono text-xs font-medium text-soft;
+    @apply inline-flex items-center rounded-md border border-line bg-raised px-2.5 py-1 font-mono text-[0.7rem] font-medium text-soft;
   }
 
   .field-input {
-    @apply w-full rounded-xl border border-line bg-canvas px-3.5 py-2.5 text-sm text-ink placeholder:text-mute transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25;
+    @apply w-full rounded-md border border-line bg-canvas px-3.5 py-3 text-sm text-ink placeholder:text-mute transition-colors focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
   }
 
-  .text-gradient {
-    background-image: linear-gradient(110deg, var(--c-brand) 10%, var(--c-api) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* Underline that fades in on hover/focus (plain text-decoration, so contrast stays checkable) */
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color 200ms;
   }
 
-  /* Faint engineering-paper grid that fades toward its edges */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--c-line) 70%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--c-line) 70%, transparent) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    text-decoration-color: currentColor;
   }
 }
 
@@ -230,38 +235,6 @@
 [data-reveal='hidden'] {
   opacity: 0;
   transform: translateY(18px);
-}
-
-/* A pulse of light travelling down a connector, so the UI -> API -> Data flow reads as live */
-@keyframes flow-line {
-  from {
-    background-position: 0 -80%;
-  }
-  to {
-    background-position: 0 180%;
-  }
-}
-
-.flow-line {
-  background-image: linear-gradient(to bottom, transparent, var(--c-brand), transparent);
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  animation: flow-line 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-.pulse-ring {
-  animation: pulse-ring 2s ease-out infinite;
 }
 
 /* Reading-progress bar driven purely by CSS scroll timelines (progressive enhancement) */

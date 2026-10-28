@@ -9,64 +9,72 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { AboutData } from '../data/portfolio.models';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { interpolateCountUp } from '../utils/portfolio.utils';
+import { Icon } from '../shared/ui/icon';
+import { prefersReducedMotion } from '../utils/motion';
 
 const COUNT_UP_DURATION_MS = 1100;
 
 @Component({
   selector: 'app-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, SectionHeader, Reveal],
+  imports: [SectionHeader, Reveal, Icon],
   template: `
-    <div class="page-container space-y-16">
-      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+    <div class="page-container space-y-24">
+      <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
         <!-- Narrative -->
-        <div class="space-y-6 lg:col-span-7">
+        <div class="space-y-8 lg:col-span-7">
           <app-section-header index="01" eyebrow="Overview" [title]="about().heading" headingId="about-heading" />
-          <div appReveal="100" class="space-y-4 text-base leading-relaxed text-soft sm:text-lg">
+          <div appReveal="100" class="space-y-5 text-base leading-relaxed text-soft sm:text-lg">
             @for (paragraph of about().paragraphs; track paragraph; let first = $first) {
-              <p [class]="first ? 'text-ink' : ''">{{ paragraph }}</p>
+              <p [class]="first ? 'font-display text-3xl font-normal leading-snug tracking-[-0.005em] text-ink sm:text-[2.15rem]' : ''">
+                {{ paragraph }}
+              </p>
             }
           </div>
         </div>
 
         <!-- Count-up stats -->
-        <div #statsContainer class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+        <dl #statsContainer class="grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
           @for (stat of about().stats; track stat.id; let i = $index) {
-            <article [appReveal]="i * 120" class="card card-interactive p-6" [attr.aria-label]="stat.displayText">
-              <div class="font-display text-5xl font-extrabold tabular-nums tracking-tight">
-                <span class="text-gradient">{{ displayValue(stat.id, stat.numericValue) }}{{ stat.suffix }}</span>
-              </div>
-              <p class="mt-2 text-sm font-medium text-soft">{{ stat.label }}</p>
-            </article>
+            <div [appReveal]="i * 120" class="flex flex-col-reverse border-t border-line py-6 lg:py-8">
+              <dt class="mt-2 text-sm font-medium text-soft">{{ stat.label }}</dt>
+              <dd class="font-display text-7xl font-normal lining-nums tabular-nums tracking-[-0.01em] sm:text-8xl">
+                <span class="text-brand">{{ displayValue(stat.id, stat.numericValue) }}{{ stat.suffix }}</span>
+              </dd>
+            </div>
           }
-        </div>
+        </dl>
       </div>
 
-      <!-- Career story -->
-      <div class="space-y-8">
-        <h3 appReveal class="font-display text-xl font-bold text-ink">{{ about().chaptersHeading }}</h3>
+      <!-- Career story: a hairline timeline -->
+      <div class="space-y-10">
+        <h3 appReveal class="font-display text-2xl font-normal tracking-[-0.005em] text-ink">{{ about().chaptersHeading }}</h3>
 
-        <ol class="relative grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <ol class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
           @for (chapter of about().chapters; track chapter.id; let i = $index) {
-            <li [appReveal]="i * 110" class="card card-interactive relative flex flex-col gap-4 p-6">
-              <div class="flex items-center justify-between">
-                <span
-                  class="flex h-10 w-10 items-center justify-center rounded-xl {{ chapter.isCurrent ? 'bg-brand-strong text-on-brand' : 'bg-brand/10 text-brand' }}"
-                  aria-hidden="true"
-                >
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">{{ chapter.icon }}</mat-icon>
-                </span>
+            <li [appReveal]="i * 110" class="group relative border-t border-line pt-7">
+              <span
+                aria-hidden="true"
+                class="absolute -top-[6px] left-0 flex h-3 w-3 items-center justify-center rounded-full border-2 bg-canvas transition-colors duration-300 {{ chapter.isCurrent ? 'border-brand' : 'border-mute group-hover:border-brand' }}"
+              >
+                @if (chapter.isCurrent) {
+                  <span class="h-1 w-1 rounded-full bg-brand"></span>
+                }
+              </span>
+              <div class="mb-3 flex items-center justify-between gap-3">
                 <span class="font-mono text-xs font-medium text-brand">{{ chapter.period }}</span>
+                <app-icon
+                  [name]="chapter.icon"
+                  [size]="20"
+                  class="transition-colors duration-300 {{ chapter.isCurrent ? 'text-brand' : 'text-mute group-hover:text-brand' }}"
+                />
               </div>
-              <div class="space-y-2">
-                <h4 class="font-display text-base font-bold text-ink">{{ chapter.title }}</h4>
-                <p class="text-sm leading-relaxed text-soft">{{ chapter.body }}</p>
-              </div>
+              <h4 class="font-display text-2xl font-normal leading-snug tracking-[-0.005em] text-ink">{{ chapter.title }}</h4>
+              <p class="mt-2 text-sm leading-relaxed text-soft">{{ chapter.body }}</p>
             </li>
           }
         </ol>
@@ -86,7 +94,7 @@ export class About {
 
     afterNextRender(() => {
       const el = this.statsContainer()?.nativeElement;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduceMotion = prefersReducedMotion();
       if (!el || reduceMotion || typeof IntersectionObserver === 'undefined') {
         return;
       }

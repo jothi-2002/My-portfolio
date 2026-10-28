@@ -28,6 +28,12 @@ export const PORTFOLIO_DATA: PortfolioData = {
     resumeUrl: '/assets/resume.pdf',
     contactSectionId: 'contact',
     currentRole: 'Software Engineer @ IntelliBuddies',
+    featured: {
+      label: 'Sole developer of',
+      title: 'Account Manager',
+      description: 'Internal license, subscription and user management application',
+      targetId: 'projects',
+    },
     socialLinks: [
       {
         id: 'linkedin',
@@ -85,7 +91,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
   about: {
     heading: 'From electronics to enterprise software',
     paragraphs: [
-      'I trained as an electronics and communication engineer, then moved into software, where I enjoy the part of the job that sits between systems: the query that has to stay fast, the API that two products depend on, and the screen a person actually uses.',
+      'I trained as an electronics and communication engineer and now build enterprise automation software. My work lives where the layers meet: the SQL query, the REST API and the Angular screen.',
       'Full Stack Software Engineer with 3+ years of experience building enterprise automation software. I deliver complete features spanning REST APIs, SQL and the Angular UI.',
       "I'm strong in query optimization, role-based security and system integration, and I'm the sole developer of an internal license and subscription management application.",
     ],
@@ -111,14 +117,14 @@ export const PORTFOLIO_DATA: PortfolioData = {
         id: 'foundations',
         period: '2019 – 2023',
         title: 'Engineering foundations',
-        body: 'Studied Electronics and Communication Engineering at Mepco Schlenk Engineering College, building the systems-thinking habits that still shape how I design software.',
+        body: 'Bachelor of Engineering in Electronics and Communication Engineering at Mepco Schlenk Engineering College (CGPA 7.85 / 10).',
         icon: 'school',
         isCurrent: false,
       },
       {
         id: 'trainee',
         period: 'Feb – May 2023',
-        title: 'First production codebase',
+        title: 'Joining IntelliBuddies',
         body: 'Joined VIT Infotech as a Software Engineer Trainee on IntelliBuddies, an enterprise business process automation platform.',
         icon: 'rocket_launch',
         isCurrent: false,
@@ -127,15 +133,15 @@ export const PORTFOLIO_DATA: PortfolioData = {
         id: 'engineer',
         period: 'Jul 2023 onward',
         title: 'Full stack engineer',
-        body: 'Shipping features end to end on IntelliBuddies: SQL and REST APIs in .NET, Angular screens on top, and the security and licensing rules in between.',
+        body: 'Software Engineer on IntelliBuddies, delivering features across .NET, SQL and Angular: REST APIs, query optimization, access control and production fixes.',
         icon: 'layers',
         isCurrent: false,
       },
       {
         id: 'owner',
         period: 'Today',
-        title: 'Owning a product',
-        body: 'Sole developer of Account Manager, the internal license, subscription and user management application: enhancements, fixes and support, all mine.',
+        title: 'Owning Account Manager',
+        body: 'Sole developer of Account Manager, the internal license, subscription and user management application: enhancements, bug fixes and support.',
         icon: 'verified',
         isCurrent: true,
       },
@@ -264,9 +270,9 @@ export const PORTFOLIO_DATA: PortfolioData = {
       icon: 'speed',
       title: 'Large datasets kept timing out',
       problem:
-        'Purchase Order and Subscription screens threw timeout errors once the data grew large.',
+        'The Purchase Order and Subscription modules threw timeout errors on large datasets.',
       approach:
-        'Optimized the SQL queries behind them and moved to server-side pagination, so each request only fetches the page being viewed.',
+        'Optimized the SQL queries behind them and added server-side pagination.',
       outcome: 'Timeout errors eliminated on large datasets.',
       technologies: ['SQL', 'Query Optimization', 'Server-Side Pagination'],
     },
@@ -276,10 +282,10 @@ export const PORTFOLIO_DATA: PortfolioData = {
       icon: 'sync_alt',
       title: 'Two systems had to agree',
       problem:
-        'The platform and the billing system each held part of the truth about tenants, subscriptions and orders.',
+        'The platform and the billing system needed to stay in sync on tenants, subscriptions, purchase orders, SKUs, customers and email.',
       approach:
         'Designed and shipped 6 REST API endpoints covering tenant, subscription, purchase order approval, SKU, customer and email.',
-      outcome: 'The two systems stay in sync through one clear integration surface.',
+      outcome: 'The two systems stay in sync.',
       technologies: ['ASP.NET Core Web API', 'REST', 'Postman'],
     },
     {
@@ -288,22 +294,22 @@ export const PORTFOLIO_DATA: PortfolioData = {
       icon: 'lock',
       title: 'A licensing gap let features leak',
       problem:
-        'Enterprise Variables and Workflow Designer were reachable without the right license tier.',
+        'There was a licensing gap around the Enterprise Variables and Workflow Designer features.',
       approach:
-        'Enforced license-tier access to both features, building on role-based access and license-based feature gating.',
-      outcome: 'Premium features are available only to the tiers that include them.',
+        'Enforced license-tier access to both features.',
+      outcome: 'The licensing gap is closed.',
       technologies: ['License-Based Gating', 'Role-Based Access', 'C#'],
     },
     {
       id: 'directory-auth',
       layer: 'security',
       icon: 'badge',
-      title: 'Directory users hit dead ends',
+      title: 'Authentication edge cases',
       problem:
-        'LDAP users had no clear path when access was refused, and users deleted from AD could linger in the platform.',
+        'LDAP users needed a proper Access Denied flow, and users deleted from Active Directory needed to be reflected in the platform.',
       approach:
-        'Added an Access Denied flow for LDAP users and a sync for AD-deleted users, alongside a more responsive BPA Designer.',
-      outcome: 'Clearer sign-in behaviour and user records that match the directory.',
+        'Built the Access Denied flow for LDAP users and a sync for AD-deleted users, and made the BPA Designer more responsive.',
+      outcome: 'Improved authentication and stability.',
       technologies: ['LDAP', 'Windows Authentication', 'Angular'],
     },
   ],
@@ -324,17 +330,20 @@ export const PORTFOLIO_DATA: PortfolioData = {
       isPlaceholder: false,
       caseStudy: {
         challenge:
-          'Licenses, subscriptions and users had to be managed in one internal tool that also stays consistent with the separate sales and billing application.',
-        role: 'Sole developer: I own the application end to end, from enhancements and bug fixes to ongoing support.',
-        approach: [
+          'An internal application for license, subscription and user management that also had to integrate with the company\'s sales and billing application.',
+        role: 'Sole developer: I own the application as its only developer.',
+        ownership: [
+          'Enhancements',
+          'Bug fixes',
+          'Support',
+          'REST API integration',
+          'License regeneration',
+          'Subscription pricing',
+        ],
+        delivered: [
           'Integrated the app with the sales and billing application through new REST APIs.',
           'Added license regeneration and subscription pricing.',
           'Fixed renewal and top-up issues.',
-        ],
-        outcomes: [
-          'One application for license, subscription and user management.',
-          'Sales and billing data connected through APIs instead of manual hand-offs.',
-          'Renewals and top-ups behave correctly.',
         ],
         architecture: [
           {
@@ -342,7 +351,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
             layer: 'ui',
             icon: 'web',
             label: 'Angular UI',
-            detail: 'Screens for licenses, subscriptions and users.',
+            detail: 'Front end for license, subscription and user management.',
             technologies: ['Angular', 'TypeScript'],
           },
           {
@@ -350,7 +359,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
             layer: 'api',
             icon: 'dns',
             label: 'ASP.NET Core Web API',
-            detail: 'REST endpoints and the business rules behind them.',
+            detail: 'REST endpoints, including the integration with sales and billing.',
             technologies: ['.NET', 'C#', 'REST'],
           },
           {
@@ -358,7 +367,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
             layer: 'data',
             icon: 'storage',
             label: 'SQL database',
-            detail: 'Persistent license, subscription and user records.',
+            detail: 'SQL storage for the application data.',
             technologies: ['SQL'],
           },
         ],

@@ -39,7 +39,7 @@ import { TechChips } from '../shared/ui/tech-chips';
                 <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                   <div class="space-y-1.5">
                     <div class="flex flex-wrap items-center gap-3">
-                      <h3 class="font-display text-xl font-bold text-ink sm:text-2xl">{{ item.role }}</h3>
+                      <h3 class="font-display text-xl font-normal text-ink sm:text-2xl">{{ item.role }}</h3>
                       @if (item.isCurrent) {
                         <span class="rounded-full bg-api/10 px-2.5 py-0.5 text-xs font-semibold text-api">Current</span>
                       }

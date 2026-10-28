@@ -10,19 +10,20 @@ import {
   signal,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { ContactData } from '../data/portfolio.models';
+import { IconName } from '../shared/icons';
 import { FormField } from '../shared/ui/form-field';
 import { Reveal } from '../shared/ui/reveal';
 import { SectionHeader } from '../shared/ui/section-header';
 import { buildGmailComposeUrl, buildMailtoUrl, validateContactForm } from '../utils/portfolio.utils';
+import { Icon } from '../shared/ui/icon';
 
 type CopyableField = 'email' | 'phone';
 
 interface ContactChannel {
   readonly id: string;
   readonly label: string;
-  readonly icon: string;
+  readonly icon: IconName;
   readonly text: string;
   readonly href?: string;
   readonly external?: boolean;
@@ -34,7 +35,7 @@ interface ContactChannel {
 @Component({
   selector: 'app-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatIconModule, SectionHeader, FormField, Reveal],
+  imports: [ReactiveFormsModule, SectionHeader, FormField, Reveal, Icon],
   template: `
     <div class="page-container space-y-12">
       <app-section-header
@@ -47,58 +48,79 @@ interface ContactChannel {
 
       <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
         <!-- Direct channels -->
-        <ul class="space-y-3 lg:col-span-5">
-          @for (channel of channels(); track channel.id; let i = $index) {
-            <li [appReveal]="i * 70" class="card flex items-center justify-between gap-4 p-4 sm:p-5">
-              <div class="flex min-w-0 items-center gap-3.5">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand" aria-hidden="true">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">{{ channel.icon }}</mat-icon>
-                </span>
-                <div class="min-w-0">
-                  <div class="text-xs font-medium text-mute">{{ channel.label }}</div>
-                  @if (channel.href) {
-                    <a
-                      [href]="channel.href"
-                      [attr.target]="channel.external ? '_blank' : null"
-                      [attr.rel]="channel.external ? 'noopener noreferrer' : null"
-                      class="block truncate text-sm font-semibold text-ink transition-colors hover:text-brand"
-                      [class.font-mono]="channel.mono"
-                    >
-                      {{ channel.text }}
-                    </a>
-                  } @else {
-                    <div class="text-sm font-semibold text-ink">{{ channel.text }}</div>
-                  }
-                </div>
-              </div>
-
-              @if (channel.copyField && channel.copyValue) {
-                <button
-                  type="button"
-                  (click)="copyText(channel.copyValue, channel.copyField)"
-                  [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
-                  class="btn-small"
-                >
-                  <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">
-                    {{ copiedField() === channel.copyField ? 'check' : 'content_copy' }}
-                  </mat-icon>
-                  <span>{{ copiedField() === channel.copyField ? 'Copied' : 'Copy' }}</span>
-                </button>
-              } @else if (channel.external && channel.href) {
-                <a
-                  [href]="channel.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  [attr.aria-label]="'Open ' + channel.label + ' profile in new tab'"
-                  class="btn-small"
-                >
-                  <span>Visit</span>
-                  <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">open_in_new</mat-icon>
-                </a>
-              }
-            </li>
+        <div class="space-y-8 lg:col-span-5">
+          @if (primary(); as channel) {
+            <div appReveal class="space-y-4">
+              <p class="eyebrow">{{ channel.label }}</p>
+              <a
+                [href]="channel.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-underline block break-all font-display text-3xl font-normal tracking-[-0.005em] text-ink transition-colors hover:text-brand sm:text-4xl"
+              >
+                {{ channel.text }}
+              </a>
+              <button
+                type="button"
+                (click)="copyText(channel.copyValue!, 'email')"
+                [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
+                class="btn-small"
+              >
+                <app-icon [name]="copiedField() === 'email' ? 'check' : 'content_copy'" [size]="14" />
+                <span>{{ copiedField() === 'email' ? 'Copied' : 'Copy' }}</span>
+              </button>
+            </div>
           }
-        </ul>
+
+          <ul>
+            @for (channel of others(); track channel.id; let i = $index) {
+              <li [appReveal]="i * 70" class="flex items-center justify-between gap-4 border-b border-line py-4 first:border-t">
+                <div class="flex min-w-0 items-center gap-3.5">
+                  <app-icon [name]="channel.icon" [size]="20" class="text-brand" />
+                  <div class="min-w-0">
+                    <div class="text-xs font-medium text-mute">{{ channel.label }}</div>
+                    @if (channel.href) {
+                      <a
+                        [href]="channel.href"
+                        [attr.target]="channel.external ? '_blank' : null"
+                        [attr.rel]="channel.external ? 'noopener noreferrer' : null"
+                        class="block truncate text-sm font-semibold text-ink transition-colors hover:text-brand"
+                        [class.font-mono]="channel.mono"
+                      >
+                        {{ channel.text }}
+                      </a>
+                    } @else {
+                      <div class="text-sm font-semibold text-ink">{{ channel.text }}</div>
+                    }
+                  </div>
+                </div>
+
+                @if (channel.copyField && channel.copyValue) {
+                  <button
+                    type="button"
+                    (click)="copyText(channel.copyValue, channel.copyField)"
+                    [attr.aria-label]="'Copy ' + channel.label.toLowerCase() + ' ' + channel.copyValue"
+                    class="btn-small"
+                  >
+                    <app-icon [name]="copiedField() === channel.copyField ? 'check' : 'content_copy'" [size]="14" />
+                    <span>{{ copiedField() === channel.copyField ? 'Copied' : 'Copy' }}</span>
+                  </button>
+                } @else if (channel.external && channel.href) {
+                  <a
+                    [href]="channel.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [attr.aria-label]="'Visit ' + channel.label + ' profile (opens in new tab)'"
+                    class="btn-small"
+                  >
+                    <span>Visit</span>
+                    <app-icon name="open_in_new" [size]="14" />
+                  </a>
+                }
+              </li>
+            }
+          </ul>
+        </div>
 
         <!-- Message composer -->
         <div appReveal="120" class="lg:col-span-7">
@@ -162,17 +184,17 @@ interface ContactChannel {
             <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
               <div class="flex flex-wrap items-center gap-3">
                 <button type="submit" class="btn-primary">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none">mail</mat-icon>
+                  <app-icon name="mail" [size]="20" />
                   <span>Open in Gmail</span>
                 </button>
                 <button type="button" (click)="onSubmitMailto()" class="btn-secondary">
-                  <mat-icon class="!h-5 !w-5 !text-xl leading-none text-brand">outgoing_mail</mat-icon>
+                  <app-icon name="outgoing_mail" [size]="20" class="text-brand" />
                   <span>Default Mail App</span>
                 </button>
               </div>
 
               <button type="button" (click)="onReset()" class="btn-small">
-                <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">restart_alt</mat-icon>
+                <app-icon name="restart_alt" [size]="14" />
                 <span>Reset</span>
               </button>
             </div>
@@ -180,10 +202,10 @@ interface ContactChannel {
             @if (generatedGmailUrl() && generatedMailtoUrl()) {
               <div
                 role="status"
-                class="flex flex-col justify-between gap-3 rounded-xl border border-brand/30 bg-brand/10 p-4 text-sm text-ink sm:flex-row sm:items-center"
+                class="flex flex-col justify-between gap-3 rounded-md border border-brand/30 bg-brand/10 p-4 text-sm text-ink sm:flex-row sm:items-center"
               >
                 <div class="flex items-center gap-2.5">
-                  <mat-icon class="!h-5 !w-5 shrink-0 !text-xl leading-none text-brand">check_circle</mat-icon>
+                  <app-icon name="check_circle" [size]="20" class="shrink-0 text-brand" />
                   <span>Message prepared for <strong>{{ contact().email }}</strong>:</span>
                 </div>
                 <div class="flex shrink-0 flex-wrap items-center gap-4">
@@ -194,11 +216,11 @@ interface ContactChannel {
                     class="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
                   >
                     <span>Open Gmail Tab</span>
-                    <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">open_in_new</mat-icon>
+                    <app-icon name="open_in_new" [size]="14" />
                   </a>
                   <a [href]="generatedMailtoUrl()" class="inline-flex items-center gap-1 font-medium text-soft hover:text-brand hover:underline">
                     <span>Mailto Link</span>
-                    <mat-icon class="!h-3.5 !w-3.5 !text-sm leading-none">launch</mat-icon>
+                    <app-icon name="launch" [size]="14" />
                   </a>
                 </div>
               </div>
@@ -264,6 +286,9 @@ export class Contact {
       { id: 'location', label: 'Location', icon: 'place', text: c.location },
     ];
   });
+
+  protected readonly primary = computed(() => this.channels()[0]);
+  protected readonly others = computed(() => this.channels().slice(1));
 
   /** Validation message for a field, shown only after the first submit attempt. */
   protected errorFor(field: keyof ReturnType<typeof validateContactForm>['errors']): string | undefined {
