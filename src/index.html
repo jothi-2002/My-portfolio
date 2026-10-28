@@ -1,10 +1,19 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <title>Jothi MuthuKamaraj – Full Stack Developer | .NET, Angular</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070b14" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash of the wrong colours.
+      try {
+        if (localStorage.getItem('jothi-portfolio-theme') === 'light') {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    </script>
     <meta
       name="description"
       content="Full Stack Software Engineer in Bengaluru with 3+ years of experience building enterprise automation software using .NET 9, ASP.NET Core Web API, SQL, and Angular."
@@ -28,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -38,6 +47,14 @@
         "@type": "Person",
         "name": "Jothi MuthuKamaraj",
         "jobTitle": "Full Stack Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "IntelliBuddies"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Mepco Schlenk Engineering College"
+        },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Bengaluru",
@@ -64,7 +81,7 @@
       }
     </script>
   </head>
-  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-blue-500/30 selection:text-blue-200 transition-colors duration-200">
+  <body>
     <app-root></app-root>
   </body>
 </html>
